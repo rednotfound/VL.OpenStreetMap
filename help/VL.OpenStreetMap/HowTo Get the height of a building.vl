@@ -55,7 +55,7 @@
           <Node Bounds="60,250,140,19" Id="Hm6xXUYBQeZIrMQZqTNKOl">
             <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="Split (By Type)" />
+              <Choice Kind="OperationCallFlag" Name="Split (ByType)" />
             </p:NodeReference>
             <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
             <Pin Id="Lb27tyPFAgHRhna1LFnjP3" Name="Features" Kind="InputPin" />

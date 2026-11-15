@@ -39,6 +39,7 @@ public sealed class OverpassNode : IDisposable
     // the request every frame, and it would never finish (found by the 2026-11-15 convention review).
 
     /// <summary>Gives the features the query found.</summary>
+    /// <param name="success">True when the features are an answer to this query: saved or just downloaded.</param>
     /// <param name="status">What happened, in words: how many features and how old, or what went wrong.</param>
     /// <param name="inProgress">True while the server is being asked or an answer is being read.</param>
     /// <param name="onCompleted">True for one frame when an answer has arrived, or the asking failed.</param>
@@ -48,6 +49,7 @@ public sealed class OverpassNode : IDisposable
     /// <param name="abort">Stops asking. The last features stay.</param>
     [return: Pin(Name = "Features")]
     public Spread<NtsFeature> Update(
+        out bool success,
         out string status,
         out bool inProgress,
         out bool onCompleted,
@@ -69,9 +71,9 @@ public sealed class OverpassNode : IDisposable
                 _work.Start("reading the saved answer", token =>
                 {
                     if (!OverpassClient.TryCached(s, q, out var xml, out var age))
-                        return Done(Array.Empty<NtsFeature>(), "not downloaded yet: press Download");
+                        return Done(Array.Empty<NtsFeature>(), "not downloaded yet: press Download", false);
                     var features = OsmSource.FromXml(xml, out var report, token);
-                    return Done(features.Cast<NtsFeature>().ToList(), $"{report}, saved {Age(age)} ago");
+                    return Done(features.Cast<NtsFeature>().ToList(), $"{report}, saved {Age(age)} ago", true);
                 });
         }
 
@@ -87,17 +89,18 @@ public sealed class OverpassNode : IDisposable
                 {
                     var xml = await OverpassClient.FetchAsync(s, q, token).ConfigureAwait(false);
                     var features = OsmSource.FromXml(xml, out var report, token);
-                    return (features.Cast<NtsFeature>().ToList(), $"{report}, downloaded just now");
+                    return (features.Cast<NtsFeature>().ToList(), $"{report}, downloaded just now", true);
                 }
                 catch (OverpassException e)
                 {
                     var hasSaved = OverpassClient.TryCached(s, q, out _, out _);
-                    return (null, e.Message + (hasSaved ? " - showing the saved answer" : ""));
+                    return (null, e.Message + (hasSaved ? " - showing the saved answer" : ""), false);
                 }
             });
         }
 
         var now = _work.Snapshot();
+        success = now.Success;
         status = now.Status;
         inProgress = now.InProgress;
         onCompleted = now.Completed != _seenCompleted;
@@ -105,8 +108,8 @@ public sealed class OverpassNode : IDisposable
         return now.Features;
     }
 
-    static Task<(IReadOnlyList<NtsFeature>?, string)> Done(IReadOnlyList<NtsFeature> features, string status)
-        => Task.FromResult<(IReadOnlyList<NtsFeature>?, string)>((features, status));
+    static Task<(IReadOnlyList<NtsFeature>?, string, bool)> Done(IReadOnlyList<NtsFeature> features, string status, bool success)
+        => Task.FromResult<(IReadOnlyList<NtsFeature>?, string, bool)>((features, status, success));
 
     static string Host(string server) => Uri.TryCreate(server, UriKind.Absolute, out var u) ? u.Host : server;
 

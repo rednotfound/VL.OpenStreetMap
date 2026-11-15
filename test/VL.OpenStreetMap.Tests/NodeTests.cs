@@ -20,7 +20,8 @@ public class NodeTests
     public void A_tag_query_asks_for_the_box_south_west_north_east_and_everything_it_is_made_of()
     {
         var area = F.ToGeometry(new Envelope(139.765, 139.769, 35.6795, 35.683));
-        var q = OverpassQueryNodes.QueryTag(area, out var status, "building");
+        var q = OverpassQueryNodes.QueryTag(area, out var ok, out var status, "building");
+        Assert.True(ok);
         Assert.Equal("", status);
         Assert.StartsWith("[out:xml][timeout:25];", q);
         Assert.Contains("nwr[\"building\"](35.6795,139.765,35.683,139.769);", q);
@@ -31,18 +32,19 @@ public class NodeTests
     public void A_value_and_quotes_are_written_safely()
     {
         var area = F.ToGeometry(new Envelope(0, 0.01, 0, 0.01));
-        var q = OverpassQueryNodes.QueryTag(area, out _, "name", "Joe's \"Cafe\"");
+        var q = OverpassQueryNodes.QueryTag(area, out _, out _, "name", "Joe's \"Cafe\"");
         Assert.Contains("nwr[\"name\"=\"Joe's \\\"Cafe\\\"\"]", q);
     }
 
     [Fact]
     public void An_area_too_large_or_not_in_degrees_is_refused_with_a_reason()
     {
-        Assert.Equal("", OverpassQueryNodes.QueryTag(F.ToGeometry(new Envelope(139, 140, 35, 36)), out var big));
+        Assert.Equal("", OverpassQueryNodes.QueryTag(F.ToGeometry(new Envelope(139, 140, 35, 36)), out var bigOk, out var big));
         Assert.Contains("at most 0.25", big);
-        Assert.Equal("", OverpassQueryNodes.QueryTag(F.ToGeometry(new Envelope(390000, 391000, 5800000, 5801000)), out var metres));
+        Assert.False(bigOk);
+        Assert.Equal("", OverpassQueryNodes.QueryTag(F.ToGeometry(new Envelope(390000, 391000, 5800000, 5801000)), out _, out var metres));
         Assert.Contains("longitude and latitude", metres);
-        Assert.Equal("", OverpassQueryNodes.QueryTag(null, out var none));
+        Assert.Equal("", OverpassQueryNodes.QueryTag(null, out _, out var none));
         Assert.Equal("no area", none);
     }
 
@@ -53,7 +55,7 @@ public class NodeTests
         Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("de-DE");   // decimal comma
         try
         {
-            var q = OverpassQueryNodes.QueryAround(new Coordinate(139.7671, 35.6812), out var status, 300.5, "amenity", "cafe");
+            var q = OverpassQueryNodes.QueryAround(new Coordinate(139.7671, 35.6812), out _, out var status, 300.5, "amenity", "cafe");
             Assert.Equal("", status);
             Assert.Contains("nwr[\"amenity\"=\"cafe\"](around:300.5,35.6812,139.7671);", q);
         }
@@ -64,8 +66,8 @@ public class NodeTests
     public void Every_preset_writes_a_query()
     {
         var area = F.ToGeometry(new Envelope(0, 0.01, 0, 0.01));
-        foreach (OsmPreset p in Enum.GetValues<OsmPreset>())
-            Assert.Contains("(0,0,0.01,0.01);", OverpassQueryNodes.QueryPreset(area, out _, p));
+        foreach (OSMPreset p in Enum.GetValues<OSMPreset>())
+            Assert.Contains("(0,0,0.01,0.01);", OverpassQueryNodes.QueryPreset(area, out _, out _, p));
     }
 
     [Theory]
@@ -193,20 +195,21 @@ public class NodeTests
             File.WriteAllText(OverpassClient.CacheFile(server, query), File.ReadAllText(Path.Combine("fixtures", "tokyo-station.osm")));
 
             using var node = new OverpassNode();
-            var first = node.Update(out var status, out var inProgress, out var completed, query, server: server);
+            var first = node.Update(out var ok, out var status, out var inProgress, out var completed, query, server: server);
             var completedFrames = completed ? 1 : 0;
             var watch = Stopwatch.StartNew();
             while (inProgress && watch.ElapsedMilliseconds < 10_000)
             {
                 Thread.Sleep(20);
-                first = node.Update(out status, out inProgress, out completed, query, server: server);
+                first = node.Update(out ok, out status, out inProgress, out completed, query, server: server);
                 if (completed) completedFrames++;
             }
             Assert.False(inProgress);
             Assert.NotEmpty(first);
             Assert.Contains("saved", status);
+            Assert.True(ok);
             Assert.Equal(1, completedFrames);                                                    // On Completed: one frame
-            Assert.Same(first, node.Update(out _, out _, out var again, query, server: server));  // one Spread per answer
+            Assert.Same(first, node.Update(out _, out _, out _, out var again, query, server: server));  // one Spread per answer
             Assert.False(again);
         }
         finally
@@ -222,11 +225,12 @@ public class NodeTests
         OverpassClient.CacheDirectory = Path.Combine(Path.GetTempPath(), "vlosm-empty-" + Guid.NewGuid().ToString("N"));
         using var node = new OverpassNode();
         var watch = Stopwatch.StartNew();
-        string status; bool inProgress;
-        do { node.Update(out status, out inProgress, out _, "[out:xml];node(1);out;", server: "https://example.invalid/"); Thread.Sleep(10); }
+        string status; bool inProgress, ok;
+        do { node.Update(out ok, out status, out inProgress, out _, "[out:xml];node(1);out;", server: "https://example.invalid/"); Thread.Sleep(10); }
         while (inProgress && watch.ElapsedMilliseconds < 5000);
         Assert.Equal("not downloaded yet: press Download", status);
-        node.Update(out var none, out _, out _, "", server: "https://example.invalid/");
+        Assert.False(ok);
+        node.Update(out _, out var none, out _, out _, "", server: "https://example.invalid/");
         Assert.Equal("no query", none);
     }
 
@@ -239,12 +243,13 @@ public class NodeTests
         var watch = Stopwatch.StartNew();
         while (watch.ElapsedMilliseconds < 1500)
         {
-            node.Update(out _, out _, out var done, path, read: true);    // a toggle held on
+            node.Update(out _, out _, out _, out var done, path, read: true);    // a toggle held on
             if (done) completions++;
             Thread.Sleep(10);
         }
-        var features = node.Update(out var status, out var inProgress, out _, path, read: true);
+        var features = node.Update(out var ok, out var status, out var inProgress, out _, path, read: true);
         Assert.False(inProgress);
+        Assert.True(ok);
         Assert.Equal(1, completions);
         Assert.NotEmpty(features);
         Assert.DoesNotContain("aborted", status);
@@ -265,7 +270,7 @@ public class NodeTests
     {
         using var work = new Background();
         var one = new[] { Building(("building", "yes")) };
-        work.Start("first", _ => Task.FromResult<(IReadOnlyList<NetTopologySuite.Features.Feature>?, string)>((one, "done")));
+        work.Start("first", _ => Task.FromResult<(IReadOnlyList<NetTopologySuite.Features.Feature>?, string, bool)>((one, "done", true)));
         var done = WaitIdle(work);
         Assert.Single(done.Features);
         Assert.Equal(1, done.Completed);
@@ -275,7 +280,7 @@ public class NodeTests
         {
             try { await Task.Delay(Timeout.Infinite, token); }
             catch (OperationCanceledException) { cancelled = true; throw; }
-            return (null, "never");
+            return (null, "never", false);
         });
         Assert.True(work.Snapshot().InProgress);
         work.Abort();
@@ -293,17 +298,18 @@ public class NodeTests
     {
         using var work = new Background();
         var one = new[] { Building(("building", "yes")) };
-        work.Start("a", _ => Task.FromResult<(IReadOnlyList<NetTopologySuite.Features.Feature>?, string)>((one, "a done")));
+        work.Start("a", _ => Task.FromResult<(IReadOnlyList<NetTopologySuite.Features.Feature>?, string, bool)>((one, "a done", true)));
         var first = WaitIdle(work);
 
         var release = new TaskCompletionSource();
-        work.Start("old", async _ => { await release.Task; return (Array.Empty<NetTopologySuite.Features.Feature>(), "old done"); });
+        work.Start("old", async _ => { await release.Task; return (Array.Empty<NetTopologySuite.Features.Feature>(), "old done", true); });
         work.Start("new", _ => throw new InvalidOperationException("boom"));
         release.SetResult();
         var s = WaitIdle(work);
         Thread.Sleep(100);
         s = work.Snapshot();
         Assert.Equal("InvalidOperationException: boom", s.Status);
+        Assert.False(s.Success);
         Assert.Same(first.Features, s.Features);
         Assert.Equal(2, s.Completed);
     }
@@ -313,7 +319,7 @@ public class NodeTests
     {
         var work = new Background();
         var release = new TaskCompletionSource();
-        work.Start("x", async _ => { await release.Task; return (new[] { Building(("a", "b")) }, "landed"); });
+        work.Start("x", async _ => { await release.Task; return (new[] { Building(("a", "b")) }, "landed", true); });
         work.Dispose();
         release.SetResult();
         Thread.Sleep(100);

@@ -37,6 +37,7 @@ public sealed class ReadOsmNode : IDisposable
     // Read starts on its rising edge only, so a toggle held on does not restart the read every frame.
 
     /// <summary>Gives the features in the file.</summary>
+    /// <param name="success">True when the file was read.</param>
     /// <param name="status">What happened, in words: how many features, or what went wrong.</param>
     /// <param name="inProgress">True while the file is being read.</param>
     /// <param name="onCompleted">True for one frame when the file has been read, or reading failed.</param>
@@ -46,6 +47,7 @@ public sealed class ReadOsmNode : IDisposable
     /// <param name="abort">Stops reading. The last features stay.</param>
     [return: Pin(Name = "Features")]
     public Spread<NtsFeature> Update(
+        out bool success,
         out string status,
         out bool inProgress,
         out bool onCompleted,
@@ -71,13 +73,14 @@ public sealed class ReadOsmNode : IDisposable
                 _work.Start("reading " + Path.GetFileName(p), token =>
                 {
                     var features = OsmSource.FromFile(p, a, out var report, token);
-                    return Task.FromResult<(IReadOnlyList<NtsFeature>?, string)>((features.Cast<NtsFeature>().ToList(), report.ToString()));
+                    return Task.FromResult<(IReadOnlyList<NtsFeature>?, string, bool)>((features.Cast<NtsFeature>().ToList(), report.ToString(), true));
                 });
         }
         if (abort)
             _work.Abort();
 
         var now = _work.Snapshot();
+        success = now.Success;
         status = now.Status;
         inProgress = now.InProgress;
         onCompleted = now.Completed != _seenCompleted;

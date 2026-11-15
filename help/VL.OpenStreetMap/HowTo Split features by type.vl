@@ -16,7 +16,7 @@
       </p:NodeReference>
       <Patch Id="Jyyeoer4V3iCxEEWhWQezf">
         <Canvas Id="JvZyiDuKDLT2HtSNJyZT2w" CanvasType="Group">
-          <Pad Id="FZUT6tBiFiJhcXqGFxa2Wi" Bounds="60,40,330,41" ShowValueBox="true" isIOBox="true" Value="Use Split (By Type)!">
+          <Pad Id="FZUT6tBiFiJhcXqGFxa2Wi" Bounds="60,40,330,41" ShowValueBox="true" isIOBox="true" Value="Use Split (ByType)!">
             <p:TypeAnnotation>
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
@@ -55,7 +55,7 @@
           <Node Bounds="60,260,140,19" Id="QvCdiUDTIC7ASjsLD8Ni1O">
             <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="Split (By Type)" />
+              <Choice Kind="OperationCallFlag" Name="Split (ByType)" />
             </p:NodeReference>
             <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
             <Pin Id="IWZAmhHapzxXCO3ipaWFY1" Name="Features" Kind="InputPin" />

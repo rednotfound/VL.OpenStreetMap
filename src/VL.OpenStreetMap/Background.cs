@@ -26,9 +26,9 @@ namespace VL.OpenStreetMap;
 /// </remarks>
 internal sealed class Background : IDisposable
 {
-    public delegate Task<(IReadOnlyList<NtsFeature>? Features, string Status)> Job(CancellationToken token);
+    public delegate Task<(IReadOnlyList<NtsFeature>? Features, string Status, bool Success)> Job(CancellationToken token);
 
-    public readonly record struct State(Spread<NtsFeature> Features, string Status, bool InProgress, int Completed);
+    public readonly record struct State(Spread<NtsFeature> Features, bool Success, string Status, bool InProgress, int Completed);
 
     readonly object _gate = new();
     CancellationTokenSource? _running;
@@ -37,12 +37,13 @@ internal sealed class Background : IDisposable
     bool _disposed;
     Spread<NtsFeature> _features = Spread<NtsFeature>.Empty;
     string _status = "";
+    bool _success;
     bool _inProgress;
 
     /// <summary>What the node shows this frame, read together.</summary>
     public State Snapshot()
     {
-        lock (_gate) return new State(_features, _status, _inProgress, _completed);
+        lock (_gate) return new State(_features, _success, _status, _inProgress, _completed);
     }
 
     /// <summary>Shows a status without running anything, and forgets any job in flight.</summary>
@@ -51,6 +52,7 @@ internal sealed class Background : IDisposable
         lock (_gate)
         {
             StopRunning();
+            _success = false;
             _status = status;
             if (clear) _features = Spread<NtsFeature>.Empty;
         }
@@ -63,11 +65,12 @@ internal sealed class Background : IDisposable
         {
             if (!_inProgress) return;
             StopRunning();
+            _success = false;
             _status = "aborted";
         }
     }
 
-    /// <summary>Runs a job on the thread pool. A null Features in its result keeps the last good ones.</summary>
+    /// <summary>Runs a job on the thread pool. A null Features in its result keeps the last good ones; Success says whether the job worked.</summary>
     public void Start(string inProgressStatus, Job job)
     {
         CancellationToken token;
@@ -87,7 +90,7 @@ internal sealed class Background : IDisposable
         // the job itself awaits its I/O rather than blocking a pool thread on it.
         _ = Task.Run(async () =>
         {
-            (IReadOnlyList<NtsFeature>? features, string status) result;
+            (IReadOnlyList<NtsFeature>? features, string status, bool success) result;
             try
             {
                 result = await job(token).ConfigureAwait(false);
@@ -98,7 +101,7 @@ internal sealed class Background : IDisposable
             }
             catch (Exception e)
             {
-                result = (null, e.GetType().Name + ": " + e.Message);
+                result = (null, e.GetType().Name + ": " + e.Message, false);
             }
             var published = result.features is null ? null : Spread.Create(result.features.ToArray());
             lock (_gate)
@@ -106,6 +109,7 @@ internal sealed class Background : IDisposable
                 if (generation != _generation || _disposed) return;
                 if (published is not null) _features = published;
                 _status = result.status;
+                _success = result.success;
                 _inProgress = false;
                 _completed++;
             }
