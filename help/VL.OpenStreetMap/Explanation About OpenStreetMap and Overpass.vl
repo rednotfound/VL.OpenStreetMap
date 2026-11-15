@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="Ci1dytG5eGGPyPYRdNPqZY" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="UmrTGbmRlp1pC11XZxVrkG" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="UhPTIn0UZ9mORXzSB0Nuob" Location="VL.OpenStreetMap" Version="0.0.0" />
+  <Patch Id="GUfIgYUAWR60f2iYyiCqFJ">
+    <Canvas Id="AnWcC0BaYnv6omAfr4hUYv" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="Vh2Puxh4kDaqB3U4ikDHPa">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="QXAU9W1r04EbVbiMEyykTI">
+        <Canvas Id="OUlNTnzlJoHUdgFAOhKH9f" CanvasType="Group">
+          <Pad Id="CFjD0oXTWdWJugLLFZMaLl" Bounds="60,40,420,41" ShowValueBox="true" isIOBox="true" Value="OpenStreetMap and Overpass">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">20</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="AhAyDlya0t5WMbxTBn0L6n" Bounds="60,90,800,28" ShowValueBox="true" isIOBox="true" Value="What the data is, where it comes from, and where to try a query before patching it. Click a link to open it.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="HjEveTWzIHoCP3oP4FEo2K" Bounds="60,160,400,30" ShowValueBox="true" isIOBox="true" Value="OpenStreetMap">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">14</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="Eu9XCVQPqharhoxUqzKOeZ" Bounds="60,200,520,26" ShowValueBox="true" isIOBox="true" Value="&lt; A free map of the world, drawn and kept up to date by volunteers.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="EruFOdwbxMcOntxTdHvNwG" Bounds="600,200,440,19" ShowValueBox="true" isIOBox="true" Value="https://www.openstreetmap.org">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="VsrDXr5NCAvm9zHxn1R93f" Bounds="60,236,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; Three kinds of element: a node is a point, a way a line of nodes (closed, an area), a relation a group (a building with courtyards, a bus route).">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="UsYYzbPUJqFUOELs7H2J6p" Bounds="600,236,440,19" ShowValueBox="true" isIOBox="true" Value="https://wiki.openstreetmap.org/wiki/Elements">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="RTJuO2Wp1nRWB2tlWDegnr" Bounds="60,286,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; Meaning is in tags, key=value: building=yes, amenity=cafe, highway=footway. Every tag becomes an attribute of a feature here.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="QwG98KcJr1YUcTrRFNopDT" Bounds="600,286,440,19" ShowValueBox="true" isIOBox="true" Value="https://wiki.openstreetmap.org/wiki/Map_features">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="B1wZw9Lv1KGr3U1fmsdrZa" Bounds="60,336,520,26" ShowValueBox="true" isIOBox="true" Value="&lt; Which tags people use, how often, and with which values.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="NLaLAvho6mEJUhEqnQg1XT" Bounds="600,336,440,19" ShowValueBox="true" isIOBox="true" Value="https://taginfo.openstreetmap.org">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="KMLCAY2ifpvOxyPALHAPGG" Bounds="60,372,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; The data is under the ODbL: show &quot;© OpenStreetMap contributors&quot; wherever you show it. The Attribution node gives the text.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="QOBg1m3uK2jozTI720oXqk" Bounds="600,372,440,19" ShowValueBox="true" isIOBox="true" Value="https://www.openstreetmap.org/copyright">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="LDNdUXccRcGIkRPzi3gnxc" Bounds="60,442,400,30" ShowValueBox="true" isIOBox="true" Value="Overpass API">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">14</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="HstchKKMNvJJicbQ4qHQTG" Bounds="60,482,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; A read-only web API that answers questions about OSM data: what is where, with which tags.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="FrsGRTbtsTuSjt9Lyc27Zb" Bounds="600,482,440,19" ShowValueBox="true" isIOBox="true" Value="https://wiki.openstreetmap.org/wiki/Overpass_API">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="MtUFiLMgRPIYLOC70QP4Vd" Bounds="60,532,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; Questions are written in Overpass QL. The OverpassQuery nodes write it for you and show it on their Query output.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="Ma9xjgulvC3VVvcNrMOX5p" Bounds="600,532,440,19" ShowValueBox="true" isIOBox="true" Value="https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="IetgHqK2rV8TCkEqoL99R4" Bounds="60,582,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; Try a query in the browser first: paste a Query output into overpass turbo, press Run, and see the answer on a map.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="EglzNQFBGA7eMQNhrWERPH" Bounds="600,582,440,19" ShowValueBox="true" isIOBox="true" Value="https://overpass-turbo.eu">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="TFezY0Hcf6imIIP7dvt0NL" Bounds="60,632,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; The public servers are shared and often slow; half a minute is normal. Ask for small areas. Every answer is saved, so asking again is instant.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="Gj65aVujPzHfYK0FMYUv6n" Bounds="60,702,400,30" ShowValueBox="true" isIOBox="true" Value="Files">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">14</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="RLTxU60lfM98YtWcKyFxxr" Bounds="60,742,520,40" ShowValueBox="true" isIOBox="true" Value="&lt; Whole countries and cities as .osm.pbf files, for ReadOSM: no server, no waiting.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="TVHrYxUCfqnRAtk6vNATxN" Bounds="600,742,440,19" ShowValueBox="true" isIOBox="true" Value="https://download.geofabrik.de">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="QgUzO6Ytt49AdXRGl7XueD" Bounds="60,812,400,30" ShowValueBox="true" isIOBox="true" Value="VL.OpenStreetMap">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">14</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="BgdOioIb9Q2aBReIVYGYMQ" Bounds="60,852,520,26" ShowValueBox="true" isIOBox="true" Value="&lt; Source code, releases and the design notes.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="PjPwUl8wkTcDeKNiqeXoad" Bounds="600,852,440,19" ShowValueBox="true" isIOBox="true" Value="https://github.com/rednotfound/VL.OpenStreetMap">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="JXIUR4EINiMDiQanmplDMF" Bounds="60,888,520,26" ShowValueBox="true" isIOBox="true" Value="&lt; Found a problem, or missing a node? Tell us here.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="K8eXgm25yI8KUi9Wpwy3sY" Bounds="600,888,440,19" ShowValueBox="true" isIOBox="true" Value="https://github.com/rednotfound/VL.OpenStreetMap/issues">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Link</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+        </Canvas>
+        <Patch Id="SGtRwUKIp5vEj3zYE9uo4h" Name="Create" />
+        <Patch Id="SPmBciBJJkMlcmGjDPUuml" Name="Update" />
+        <ProcessDefinition Id="MnWe6s75qaLr7G2ZJ9Awv9">
+          <Fragment Id="CXX3n8BT7qgUs8BJgzOrKC" Patch="SGtRwUKIp5vEj3zYE9uo4h" Enabled="true" />
+          <Fragment Id="Ktvya9h7OdVhYz8mWPOY0C" Patch="SPmBciBJJkMlcmGjDPUuml" Enabled="true" />
+        </ProcessDefinition>
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="OHcGnkXqot993Euceha28U" Location="VL.NetTopologySuite" Version="0.0.0" />
+</Document>
