@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <AssemblyName>VL.OpenStreetMap</AssemblyName>
+    <RootNamespace>VL.OpenStreetMap</RootNamespace>
+    <Version>0.0.1</Version>
+    <Authors>red</Authors>
+    <Description>OpenStreetMap data from Overpass or .osm/.pbf files, as NetTopologySuite features, for vvvv gamma</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- OsmSharp 7 is a prerelease; NU5104 would warn on every pack. -->
+    <NoWarn>$(NoWarn);NU5104</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Ships inside vvvv; never ours to copy (family rule). -->
+    <PackageReference Include="VL.Core" Version="2025.7.4" ExcludeAssets="runtime" />
+
+    <!-- The family's one NTS version: one assembly identity across every sibling in vvvv. -->
+    <PackageReference Include="NetTopologySuite" Version="2.6.0" />
+    <PackageReference Include="NetTopologySuite.Features" Version="2.1.0" />
+
+    <!--
+      OsmSharp reads OSM XML (what Overpass is asked for) and .osm.pbf files. MIT; it brings
+      protobuf-net (Apache-2.0). A NuGet dependency, not bundled. OsmSharp.Geo is deliberately not
+      used: measured 2026-11-15, it made no polygon at all (docs/OSM-RESEARCH.md); the geometry is
+      built here (OsmGeometry.cs).
+    -->
+    <PackageReference Include="OsmSharp" Version="7.0.0-pre028" />
+  </ItemGroup>
+
+</Project>

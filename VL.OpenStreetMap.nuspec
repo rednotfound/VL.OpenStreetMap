@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>VL.OpenStreetMap</id>
+    <version>0.0.1-alpha</version>
+    <title>VL.OpenStreetMap — OpenStreetMap data for vvvv gamma</title>
+    <authors>red</authors>
+    <owners>red</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/rednotfound/VL.OpenStreetMap</projectUrl>
+    <readme>docs\README.md</readme>
+    <description>OpenStreetMap data in VL: buildings, roads and places from Overpass or a downloaded file, as NetTopologySuite features.</description>
+    <summary>OpenStreetMap data in VL: buildings, roads and places from Overpass or a downloaded file, as NetTopologySuite features.</summary>
+    <releaseNotes>
+      0.0.1-alpha - In development, not published.
+    </releaseNotes>
+    <copyright>Copyright 2026 VL.OpenStreetMap Contributors</copyright>
+    <!-- The "VL" tag is what makes the pack discoverable at https://vvvv.org/packs -->
+    <tags>VL vvvv gamma openstreetmap osm overpass gis geometry feature nts nettopologysuite spatial buildings roads</tags>
+    <repository type="git" url="https://github.com/rednotfound/VL.OpenStreetMap" />
+    <!--
+      Must match the NugetDependency lines in VL.OpenStreetMap.vl: the .vl teaches VL the types, the
+      nuspec makes them resolvable for a consumer. VL.Core and VL.CoreLib ship inside vvvv.
+      OsmSharp is a prerelease (7.0.0-pre028), the current one, and brings protobuf-net.
+      VL.NetTopologySuite is not needed by any node here, but by the help and by every user: the
+      features are drawn by its Geometry IOBox and opened with its GetAttribute. 0.0.8-alpha is
+      the first that gives an empty geometry rather than nothing for a missing input.
+    -->
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="NetTopologySuite" version="2.6.0" />
+        <dependency id="NetTopologySuite.Features" version="2.1.0" />
+        <dependency id="OsmSharp" version="7.0.0-pre028" />
+        <dependency id="VL.NetTopologySuite" version="0.0.8-alpha" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="VL.OpenStreetMap.vl" target="" />
+    <file src="src\VL.OpenStreetMap\bin\Release\net8.0\VL.OpenStreetMap.dll" target="lib\net8.0\" />
+    <file src="src\VL.OpenStreetMap\bin\Release\net8.0\VL.OpenStreetMap.xml" target="lib\net8.0\" />
+    <file src="help\VL.OpenStreetMap\*.vl" target="help\" />
+    <file src="help\VL.OpenStreetMap\Help.xml" target="help\" />
+    <!-- The saved answers and the sample file the help opens with, so it works before Download and offline. -->
+    <file src="help\VL.OpenStreetMap\Assets\**" target="help\Assets\" />
+    <file src="LICENSE" target="docs\LICENSE" />
+    <file src="THIRD-PARTY-NOTICES.md" target="docs\" />
+    <file src="README.md" target="docs\" />
+  </files>
+</package>

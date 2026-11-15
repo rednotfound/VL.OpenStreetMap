@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="OG2iCBRzsiCe0NM7ijVYP5" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="Gjtsc7ySxG0j9Ot41DdI9h" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="QKmtEr242ogN75fWYaSYk6" Location="VL.OpenStreetMap" Version="0.0.0" />
+  <Patch Id="HXXKYakz31Z3o63WmBP64k">
+    <Canvas Id="QDwocIiSNg35KsHGGNJ7Dl" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="OK3zE6Lh4CjfjKwGai1GIp">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="Jyyeoer4V3iCxEEWhWQezf">
+        <Canvas Id="JvZyiDuKDLT2HtSNJyZT2w" CanvasType="Group">
+          <Pad Id="FZUT6tBiFiJhcXqGFxa2Wi" Bounds="60,40,330,41" ShowValueBox="true" isIOBox="true" Value="Use Split (By Type)!">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">20</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="S1GB8840iW8CtbOQpwAf3v" Bounds="60,90,600,46" ShowValueBox="true" isIOBox="true" Value="One list of features out of Overpass or ReadOSM; three when a layer wants one kind.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="LHcUEPN5lGE9FkxzfEufTK" Comment="Path" Bounds="60,170,300,15" ShowValueBox="true" isIOBox="true" Value="Assets\tokyo-station.osm">
+            <p:TypeAnnotation LastCategoryFullName="IO" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="Path" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="60,210,110,19" Id="Gu2XSoHyPcglCqXHKLajBc">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="ReadOSM" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="N3Fsl8ZjuIvHdDD6iqdTZU" Name="Path" Kind="InputPin" />
+            <Pin Id="NfFbwE8uczDHBBowbtAqhd" Name="Area" Kind="InputPin" />
+            <Pin Id="Cb1sNJ4N8WUitnPU0SOIxW" Name="Read" Kind="InputPin" />
+            <Pin Id="SCtjBKAQOM7XNcnFfsdfX7" Name="Features" Kind="OutputPin" />
+            <Pin Id="NITn1sCZCpuTpcOwWMOmOg" Name="Status" Kind="OutputPin" />
+            <Pin Id="NXFeSn0JrW8T5mbK2JWxHp" Name="Busy" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="60,260,140,19" Id="QvCdiUDTIC7ASjsLD8Ni1O">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="Split (By Type)" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="IWZAmhHapzxXCO3ipaWFY1" Name="Features" Kind="InputPin" />
+            <Pin Id="Pk6QgUTUWgfZHJ5V7NN6QS" Name="Points" Kind="OutputPin" />
+            <Pin Id="NxICJhAQ4YAodQvxb6f5fr" Name="Lines" Kind="OutputPin" />
+            <Pin Id="RoCYqnfHCo6Nt3SxE6whxt" Name="Polygons" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="60,320,80,19" Id="IwAkAG8HutTk64uRakwO7s">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="LvGkDPY0yHzUHSDGRFRyw3" Name="Features" Kind="InputPin" />
+            <Pin Id="FkOAjWPYMfjAyP32m9CiGO" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="OUWmAS8cHCpPEC9IQYvmwb" Comment="Points" Bounds="60,360,240,180" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="360,320,80,19" Id="GE39bLciPALDAaXyXxYWsy">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="Li87xmyHzlFt9qUAfTfWXs" Name="Features" Kind="InputPin" />
+            <Pin Id="GGkV8w3lHtetxAlIpqEVgq" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="TPNfaPG0Oq3PuT1TLx4ytD" Comment="Lines" Bounds="360,360,240,180" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="660,320,80,19" Id="GrSS2npjyygQc6wEsTmXNm">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="QFPNOisCZVPjKKTR5DNgXS" Name="Features" Kind="InputPin" />
+            <Pin Id="UrrrS571oHxtIJbBpZbYQR" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="TOlaU8IalHxtr5KCwqp17b" Comment="Polygons" Bounds="660,360,240,180" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="DXIIHcAaEfo5B1PSiLBX9k" Bounds="60,560,600,44" ShowValueBox="true" isIOBox="true" Value="&lt; Points: shops, stations, trees. Lines: roads and paths, and closed rings such as a ring road. Polygons: buildings, squares, parks.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+        </Canvas>
+        <Patch Id="LYVDyjKK7dNPUurg914A9F" Name="Create" />
+        <Patch Id="N3uSTx5SttvWA2UsQmhE7w" Name="Update" />
+        <ProcessDefinition Id="KraWRacPo7bSoVjUaEaqjS">
+          <Fragment Id="KXC2O9pJFvQvTexWY5YEfU" Patch="LYVDyjKK7dNPUurg914A9F" Enabled="true" />
+          <Fragment Id="UUoqYkBt8JJrVxV7CeuI9K" Patch="N3uSTx5SttvWA2UsQmhE7w" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="NHW5voSIZbPOAxZ0znWkZZ" Ids="LHcUEPN5lGE9FkxzfEufTK,N3Fsl8ZjuIvHdDD6iqdTZU" />
+        <Link Id="Mj73kxknXj12VaLqlzTlkI" Ids="SCtjBKAQOM7XNcnFfsdfX7,IWZAmhHapzxXCO3ipaWFY1" />
+        <Link Id="V9PJ7pSGTSR1ivJdRaT1ZR" Ids="Pk6QgUTUWgfZHJ5V7NN6QS,LvGkDPY0yHzUHSDGRFRyw3" />
+        <Link Id="MraBTuqaidJkyLRSSck4kg" Ids="FkOAjWPYMfjAyP32m9CiGO,OUWmAS8cHCpPEC9IQYvmwb" />
+        <Link Id="EhFK5RaLLeXqxBaLxqdLar" Ids="NxICJhAQ4YAodQvxb6f5fr,Li87xmyHzlFt9qUAfTfWXs" />
+        <Link Id="V65h7gNggr5gu8UljQoFkr" Ids="GGkV8w3lHtetxAlIpqEVgq,TPNfaPG0Oq3PuT1TLx4ytD" />
+        <Link Id="DFD8YSWNxFGHvFzCmYPAMz" Ids="RoCYqnfHCo6Nt3SxE6whxt,QFPNOisCZVPjKKTR5DNgXS" />
+        <Link Id="NJOn8TAJXbLmOPlZq8xful" Ids="UrrrS571oHxtIJbBpZbYQR,TOlaU8IalHxtr5KCwqp17b" />
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="VojI1jZLyIkpQvBNyFS4VJ" Location="VL.NetTopologySuite" Version="0.0.0" />
+</Document>

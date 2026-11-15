@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="G1iR152X6M0FdT1QSRCJRl" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="QWNcgZ9nx19NHa4tj72iX2" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="JnDAUNiGFYIzbRpL11vwVM" Location="VL.OpenStreetMap" Version="0.0.0" />
+  <Patch Id="CsDWzvcV5RAQFtYpQredZS">
+    <Canvas Id="S88cnBefg3OQz3YWlBXjKs" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="Jur6DT7dKbG1ikVlXfzZz7">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="Bxi8DgThe61IY5Kb3s2qW2">
+        <Canvas Id="GSI0AM5fo3sZxOjo2iO1KB" CanvasType="Group">
+          <Pad Id="VZkc2o0wmG9wCoYsSRjN28" Bounds="60,40,225,41" ShowValueBox="true" isIOBox="true" Value="Use Overpass!">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">20</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="QNNjyR2GaLHGIdWux0yF65" Bounds="60,90,600,46" ShowValueBox="true" isIOBox="true" Value="OpenStreetMap data in three nodes: ask, press Download, draw. Every answer is saved, so the patch keeps working offline.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Node Bounds="60,170,70,19" Id="PU4PXxnReBnbn7b3DtUdqm">
+            <p:NodeReference LastCategoryFullName="NetTopologySuite.Geometry" LastDependency="VL.NetTopologySuite.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="Coordinate" />
+              <PinReference Kind="InputPin" Name="Y" />
+              <PinReference Kind="InputPin" Name="X" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="PXXHecARyrNhW6XU96Q7av" Name="X" Kind="InputPin" DefaultValue="139.7671">
+              <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                <Choice Kind="TypeFlag" Name="Float64" />
+              </p:TypeAnnotation>
+            </Pin>
+            <Pin Id="KUBMZXulzOc3dqL42xoPDP" Name="Y" Kind="InputPin" DefaultValue="35.6812">
+              <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                <Choice Kind="TypeFlag" Name="Float64" />
+              </p:TypeAnnotation>
+            </Pin>
+            <Pin Id="DL338ZVOLArS5Lqnu776sV" Name="Result" Kind="OutputPin" />
+          </Node>
+          <Pad Id="SEsZVG1Qevpz9FOkIIevvz" Comment="Radius" Bounds="200,170,60,15" ShowValueBox="true" isIOBox="true" Value="300">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="Float64" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="60,220,150,19" Id="EfiHj8mLI5AvhEeBuI0LeT">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="OverpassQuery (Around)" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="Fg77hfSKLHNzcYMCGdlyFU" Name="Position" Kind="InputPin" />
+            <Pin Id="COTYecYh04xv3a9q5LmJwT" Name="Radius" Kind="InputPin" />
+            <Pin Id="IEoDpPTqi5nugjFS5bXDK5" Name="Key" Kind="InputPin" />
+            <Pin Id="AmmDepH81db9XDSmvWEYuW" Name="Value" Kind="InputPin" />
+            <Pin Id="Qj3Xi9Y6z5SeQx6etChOVZ" Name="Query" Kind="OutputPin" />
+            <Pin Id="QhV3FjK6Yl8kaHZhJIkjGw" Name="Status" Kind="OutputPin" />
+          </Node>
+          <Pad Id="BkrfvrBxl4PKamUON48u4o" Comment="Query" Bounds="320,220,300,110" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="ExLlU3TcZS9NkkBFB8ojKy" Comment="Download" Bounds="200,280,35,35" ShowValueBox="true" isIOBox="true" Value="False">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="Boolean" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Bang</p:buttonmode>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Node Bounds="60,340,110,19" Id="MRotSKU6q6xErEM0i1hM6r">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="Overpass" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="UougJ816uHEeVbAYbCMHek" Name="Query" Kind="InputPin" />
+            <Pin Id="H7gjuf45en7VIynJz3fpW5" Name="Download" Kind="InputPin" />
+            <Pin Id="PgXzLhrur0kpU8q4ese4Dj" Name="Server" Kind="InputPin" />
+            <Pin Id="AmUapviXyO6yGKAz5tBmq2" Name="Features" Kind="OutputPin" />
+            <Pin Id="HS8yE03lO6PEutXnkb6c6N" Name="Status" Kind="OutputPin" />
+            <Pin Id="Qgz76GQjFPBWRfp61jVkQs" Name="Busy" Kind="OutputPin" />
+          </Node>
+          <Pad Id="FzojCioHkdODVVoiANefUo" Comment="Status" Bounds="200,380,420,15" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="60,420,80,19" Id="PfTzVIbzKCaiKzKOLB7iX6">
+            <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="CTQqSU6RN0czmPkUBz541a" Name="Features" Kind="InputPin" />
+            <Pin Id="G3PIzxOpEDVYuXOUEUp1g9" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="RaeLrWhZ0dutqxOFR8CStN" Comment="" Bounds="60,460,280,210" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="360,460,80,19" Id="IiE0MDoDsf255JTDKZWjXv">
+            <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="Attribution" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="M1sK5yyCIb0fGC3Ac6NpdL" Name="Text" Kind="OutputPin" />
+            <Pin Id="Sa2HzGlNHZIJ6NFURn0Xwf" Name="Link" Kind="OutputPin" />
+          </Node>
+          <Pad Id="FHNUjKbcfVt405my71w0AE" Comment="Credit" Bounds="360,500,180,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="GPrvx3dfQdaZCZoOoTpOlR" Bounds="680,170,320,44" ShowValueBox="true" isIOBox="true" Value="&lt; Position is longitude, latitude; Radius is metres. Here: Tokyo Station.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="FJfgWHYKkzUW6qp3qHs1Gh" Bounds="680,222,320,44" ShowValueBox="true" isIOBox="true" Value="&lt; The query is plain Overpass QL. Read it, or paste it into overpass-turbo.eu.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="SZlC1Oxrxj6NqW68dugNXN" Bounds="680,280,320,44" ShowValueBox="true" isIOBox="true" Value="&lt; Press Download once. The answer is saved and shown at once next time, offline too.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="K35Ii5hPBZZnbaxO6KLvn8" Bounds="680,380,320,62" ShowValueBox="true" isIOBox="true" Value="&lt; The public server is shared and often busy: keep areas small, and try another Server if it does not answer.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="A12IeCAqSqBdTOhz6nSG7z" Bounds="680,460,320,44" ShowValueBox="true" isIOBox="true" Value="&lt; OpenStreetMap data must carry this credit wherever it is shown.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+        </Canvas>
+        <Patch Id="MTvRkJ59QQHlz1NqjIJXbI" Name="Create" />
+        <Patch Id="HRDhDm2pHEiVfgJMWrMIZ5" Name="Update" />
+        <ProcessDefinition Id="BbdA0VbQqMkJmt4Gh9E3MV">
+          <Fragment Id="Pz2J71uE6uWLHjA8bQcYLS" Patch="MTvRkJ59QQHlz1NqjIJXbI" Enabled="true" />
+          <Fragment Id="JYYft4DSJ7DYTfAzCowGd7" Patch="HRDhDm2pHEiVfgJMWrMIZ5" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="EfYEdCd2vAwh9Li4YhIpCY" Ids="DL338ZVOLArS5Lqnu776sV,Fg77hfSKLHNzcYMCGdlyFU" />
+        <Link Id="Dqa2eFl0RGgmnbHFMMAscs" Ids="SEsZVG1Qevpz9FOkIIevvz,COTYecYh04xv3a9q5LmJwT" />
+        <Link Id="HQVMee0RRTyT7GjfZUEhzh" Ids="Qj3Xi9Y6z5SeQx6etChOVZ,BkrfvrBxl4PKamUON48u4o" />
+        <Link Id="BrMVDGIm0mMUfbPZChGyHO" Ids="Qj3Xi9Y6z5SeQx6etChOVZ,UougJ816uHEeVbAYbCMHek" />
+        <Link Id="Ok4ri1SZjBSnaec90iKA5r" Ids="ExLlU3TcZS9NkkBFB8ojKy,H7gjuf45en7VIynJz3fpW5" />
+        <Link Id="SkcP7U5Vg0mpwM5kOTxahj" Ids="HS8yE03lO6PEutXnkb6c6N,FzojCioHkdODVVoiANefUo" />
+        <Link Id="ENuhDur20GJykGchBFTLL3" Ids="AmUapviXyO6yGKAz5tBmq2,CTQqSU6RN0czmPkUBz541a" />
+        <Link Id="U7kyNAfJKrykS9f8VZVEvx" Ids="G3PIzxOpEDVYuXOUEUp1g9,RaeLrWhZ0dutqxOFR8CStN" />
+        <Link Id="DzjKqM7Pn3SmqdbG6JO90H" Ids="M1sK5yyCIb0fGC3Ac6NpdL,FHNUjKbcfVt405my71w0AE" />
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="A74tZddBZmg5vXURIzL8QJ" Location="VL.NetTopologySuite" Version="0.0.0" />
+</Document>

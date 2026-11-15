@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="LNI9vNhqg99TILzDfWyJqG" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="PI4gEjSv77mBm8SmsIDYr1" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="F9RFUyJ2wHkk8AGzIz3KWD" Location="NetTopologySuite" Version="2.6.0" />
+  <NugetDependency Id="UjMz4LVkHyIMfzELY2aVM7" Location="NetTopologySuite.Features" Version="2.1.0" />
+  <NugetDependency Id="PDvhaYlbS2DlJk8JT5Ng2k" Location="OsmSharp" Version="7.0.0-pre028" />
+  <Patch Id="J9B4F2KlDh9JLS9qsciHti">
+    <Canvas Id="Usj09moUXwIHa0fiOMMsOD" DefaultCategory="OpenStreetMap" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="KH2uJ9eg64Mdjv06XuMMjC">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <FullNameCategoryReference ID="Primitive" />
+      </p:NodeReference>
+      <Patch Id="GdI7ImHNfwG8GGve3ThQin">
+        <Canvas Id="BMKdUzyNNo63oSuUBYYzs6" CanvasType="Group" />
+        <Patch Id="QGCzXyaqcSMjNAO4IGBCaP" Name="Create" />
+        <Patch Id="Ly8FLaDi4lo0jOPh0rkn0D" Name="Update" />
+        <ProcessDefinition Id="NFFiYW5LZxQHPSd9mkTm1q">
+          <Fragment Id="EHy1bHTHgt3mHklH1kaOeN" Patch="QGCzXyaqcSMjNAO4IGBCaP" Enabled="true" />
+          <Fragment Id="Pe1qfpSiQxokA6oWVndYoI" Patch="Ly8FLaDi4lo0jOPh0rkn0D" Enabled="true" />
+        </ProcessDefinition>
+      </Patch>
+    </Node>
+  </Patch>
+  <PlatformDependency Id="CwhuDfSjDaC1WWs9xzhNBq" Location="./lib/net8.0/VL.OpenStreetMap.dll" IsForward="true" />
+</Document>

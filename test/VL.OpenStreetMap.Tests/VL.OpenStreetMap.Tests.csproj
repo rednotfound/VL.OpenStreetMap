@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>VL.OpenStreetMap.Tests</AssemblyName>
+    <RootNamespace>VL.OpenStreetMap.Tests</RootNamespace>
+    <NoWarn>$(NoWarn);NU5104</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- No ExcludeAssets="runtime" here: vvvv supplies VL.Core to the package, a test host does not. -->
+    <PackageReference Include="VL.Core" Version="2025.7.4" />
+    <ProjectReference Include="..\..\src\VL.OpenStreetMap\VL.OpenStreetMap.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- A real Overpass answer (Tokyo Station, 2026-11-15, ODbL - see THIRD-PARTY-NOTICES.md), read from disk. -->
+    <None Include="..\fixtures\*.osm" Link="fixtures\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

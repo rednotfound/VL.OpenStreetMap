@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="Ol8A0Lcv3ujEserizFj6rP" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="LLdjcGHVHdlZ2LjZbEXHyh" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="TKW5M99NEWJVHDwQYJ9Oip" Location="VL.OpenStreetMap" Version="0.0.0" />
+  <Patch Id="MMCzbWmHYk9YGxFItioDo2">
+    <Canvas Id="Kx2Jkx5RcY4I4NfMJJGgF2" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="U7QdOcVCH3ug7RmLBPlWNA">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="RnKRwuA1bLVckyFG1YNMsG">
+        <Canvas Id="C9kZF9lTM9S7gu0kvqCRhY" CanvasType="Group">
+          <Pad Id="AtrBkZrpeJc3s9hkQlSl5Q" Bounds="60,40,210,41" ShowValueBox="true" isIOBox="true" Value="Use ReadOSM!">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">20</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="AM8NZ4dysXUyXYS4oFaJxw" Bounds="60,90,600,28" ShowValueBox="true" isIOBox="true" Value="OpenStreetMap from a file: no network, no waiting, the same in every classroom.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="HhuGxlGIYOAMPggGOH8bDI" Comment="Path" Bounds="60,170,300,15" ShowValueBox="true" isIOBox="true" Value="Assets\tokyo-station.osm">
+            <p:TypeAnnotation LastCategoryFullName="IO" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="Path" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="60,210,110,19" Id="KX5O2gL8eCfVJdLf47KEmF">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="ReadOSM" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="DAElwrvU9LPEzxoOKgZNnw" Name="Path" Kind="InputPin" />
+            <Pin Id="TTA32XblhktQkBv2epERKa" Name="Area" Kind="InputPin" />
+            <Pin Id="BXFPOb25G9OrdQAtWQAzFa" Name="Read" Kind="InputPin" />
+            <Pin Id="Qc37FUbdJVo4xtPB6e7iYW" Name="Features" Kind="OutputPin" />
+            <Pin Id="VVuBNF4kJkOSqu8K03Vvog" Name="Status" Kind="OutputPin" />
+            <Pin Id="PpI6CRKIlHdrRbF9i7GsNi" Name="Busy" Kind="OutputPin" />
+          </Node>
+          <Pad Id="DhuGW3GMMK6cHEgTvy9VwR" Comment="Status" Bounds="200,250,420,15" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="60,290,80,19" Id="EPAY1XToPuoh74UdVASdS5">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="O12v4wUjYxAvyR7jCMxfdT" Name="Features" Kind="InputPin" />
+            <Pin Id="GMbH7jQalA1RJiFgo7AGLJ" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="LzpjAYJWYIBinMnjBzf4N3" Comment="" Bounds="60,330,280,210" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="360,330,80,19" Id="M8ojyWAyaIDIhei13PIDi5">
+            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="Attribution" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="GOxsozH3MZjSQm6zVfv9GO" Name="Text" Kind="OutputPin" />
+            <Pin Id="ElmGDxMsJZAc15e6HegnAr" Name="Link" Kind="OutputPin" />
+          </Node>
+          <Pad Id="IcmbGiCX6hEHaRo9s6nscb" Comment="Credit" Bounds="360,370,180,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="IgGyKCvOQmqvGCJCWeieXq" Bounds="720,170,320,62" ShowValueBox="true" isIOBox="true" Value="&lt; A .osm file, as openstreetmap.org Export gives it, or a .osm.pbf extract from Geofabrik.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="OyEdBjOohu03xhKcWVW0Fj" Bounds="720,240,320,62" ShowValueBox="true" isIOBox="true" Value="&lt; Connect an Area to keep only part of a big file: a whole region is millions of elements.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="LmXoZitWOACur0Tn79pH98" Bounds="720,330,320,62" ShowValueBox="true" isIOBox="true" Value="&lt; Tokyo Station, from Overpass on 2026-11-15. The station building is one polygon made of 35 ways.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+        </Canvas>
+        <Patch Id="DXsD4rLW1ERoNm5gAkbauO" Name="Create" />
+        <Patch Id="HIE1xDngUqmHoK7bmSsxYF" Name="Update" />
+        <ProcessDefinition Id="GluXk1YMNWiuGQGD2lYH4T">
+          <Fragment Id="Vfnq1nlbBs6Fsotza5xKIP" Patch="DXsD4rLW1ERoNm5gAkbauO" Enabled="true" />
+          <Fragment Id="DMuAAZOSZDKrk1dzXdVhoP" Patch="HIE1xDngUqmHoK7bmSsxYF" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="NJqrxUED7QXBBNtpB3tFrO" Ids="HhuGxlGIYOAMPggGOH8bDI,DAElwrvU9LPEzxoOKgZNnw" />
+        <Link Id="MpzTEM8tWZb746Ij63airh" Ids="VVuBNF4kJkOSqu8K03Vvog,DhuGW3GMMK6cHEgTvy9VwR" />
+        <Link Id="VbxwqkAzuEL5XOYKigo65b" Ids="Qc37FUbdJVo4xtPB6e7iYW,O12v4wUjYxAvyR7jCMxfdT" />
+        <Link Id="CDQkRhV33K0fG1iCIF6bl7" Ids="GMbH7jQalA1RJiFgo7AGLJ,LzpjAYJWYIBinMnjBzf4N3" />
+        <Link Id="GIFBFxaXQEp6zeBU5zA5XT" Ids="GOxsozH3MZjSQm6zVfv9GO,IcmbGiCX6hEHaRo9s6nscb" />
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="PiAKUgrgNMj5lfxpljoVaH" Location="VL.NetTopologySuite" Version="0.0.0" />
+</Document>
