@@ -188,6 +188,9 @@ foreach ($file in $targets) {
         if ($body -notmatch '<Choice Kind="TypeFlag" Name="String" />') {
             $problems.Add("annotation Pad $($m.Groups[1].Value) has no String TypeAnnotation - it will render as an empty box")
         }
+        # A clickable web link is the other annotation vvvv's own help uses: stringtype Link on a
+        # one-line http(s) Value (VL.Audio's Explanation Overview; 106 shipped .vl files, 7.4).
+        elseif ($body -match 'StringType">Link<' -and $attributes -match '\sValue="https?://[^"\s]+"') { }
         elseif ($body -notmatch 'StringType">Comment<') {
             $problems.Add("annotation Pad $($m.Groups[1].Value) is not set to stringtype Comment - it will render as a one-line value box")
         }

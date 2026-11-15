@@ -2,6 +2,7 @@
 <Pack>
 	<Topic title="Overview">
 		<VLDocument link="Explanation Overview of available nodes.vl" tags="overview,explanation,openstreetmap,osm,overpass,nodes" />
+		<VLDocument link="Explanation About OpenStreetMap and Overpass.vl" tags="about,openstreetmap,osm,overpass,ql,turbo,tags,node,way,relation,odbl,licence,geofabrik,github" />
 	</Topic>
 	<Topic title="Getting data">
 		<VLDocument link="HowTo Get buildings around a place.vl" tags="overpass,around,radius,buildings,download,cache,offline,attribution,osm" />
