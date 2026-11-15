@@ -75,11 +75,11 @@ Names follow the family's rule: after what the user gets, VL's shape, three inpu
 
 | Node | Inputs | Outputs | Notes |
 |---|---|---|---|
-| **`Overpass`** (process node) | **Query** (the Overpass QL text), **Download** (a bang), **Server** (default `https://overpass-api.de/api/interpreter`) | **Features**, **Status**, **Busy** | See *The network* below. |
+| **`Overpass`** (process node) | **Query** (the Overpass QL text), **Server** (default `https://overpass-api.de/api/interpreter`), **Download** (starts on its rising edge), **Abort** | **Features**, **Status**, **In Progress**, **On Completed** (one frame) | See *The network* below. |
 | **`OverpassQuery (Tag)`** | **Area** (a geometry in lon/lat), **Key** (`building`), **Value** (empty = any) | **Query** | Writes the QL for you. |
 | **`OverpassQuery (Preset)`** | **Area**, **Preset** (Buildings, Roads, Railways, Water, Green, Amenities, Everything) | **Query** | The presets every tool surveyed offers (QuickOSM "Urban", Houdini's OSM Filter, BlenderGIS's defaults). |
 | **`OverpassQuery (Around)`** | **Position** (lon/lat), **Radius** (metres), **Key**, **Value** | **Query** | "Everything within 300 m of here", the most common way an area is chosen (Gismo, QuickOSM "Around"). |
-| **`ReadOSM`** (process node) | **Path** (`.osm` or `.osm.pbf`), **Area** (optional: keep only what lies in it), **Read** (a bang) | **Features**, **Status**, **Busy** | Offline and reliable in a classroom. A whole country's `.pbf` is large: Area keeps what is needed, and reading runs in the background. |
+| **`ReadOSM`** (process node) | **Path** (`.osm` or `.osm.pbf`), **Area** (optional: keep only what lies in it), **Read** (rising edge), **Abort** | **Features**, **Status**, **In Progress**, **On Completed** (one frame) | Offline and reliable in a classroom. A whole country's `.pbf` is large: Area keeps what is needed, and reading runs in the background. |
 
 - **Area** is any NTS geometry: its bounding box is what Overpass is asked for. So a `Rectangle`,
   a `Circle`, a drawn `GeometryEditor` shape or a buffered point all work, in the units Overpass

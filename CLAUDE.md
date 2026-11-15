@@ -27,6 +27,11 @@ on nothing else of ours. Memory for the whole family lives in that repository's 
   `%LOCALAPPDATA%\VL.OpenStreetMap\overpass\` and shown at once, offline, the next time the same
   query is asked. Errors are a status, never an exception. The main server is busy (a 502 and a
   33 s answer on the first two requests, 2026-11-15).
+- **Async the way vvvv's own loaders do it** (2026-11-15 survey: HTTPGet, FileReader, FileDownloader,
+  TextureReader (Async) all poll in a process node): `In Progress`, a one-frame `On Completed`, an `Abort`,
+  the trigger last and on its rising edge (a held toggle once restarted the request every frame), the
+  result read in one snapshot, I/O awaited rather than blocked on. No Observable variant: in the packs it
+  is the secondary one. `Busy` was renamed `In Progress` the same day.
 - **Process nodes run on a worker thread** (`Background.cs`): a node runs sixty times a second and
   may never wait for the network or a file. The features stay one Spread per result.
 
@@ -62,7 +67,7 @@ dotnet test test\VL.OpenStreetMap.Tests\VL.OpenStreetMap.Tests.csproj
 
 | | state |
 |---|---|
-| `dotnet test` | 38 tests, no network; the Tokyo Station answer (test/fixtures) plus hand-written cases; the polygon rules negative-tested (5 tests red with them off) |
+| `dotnet test` | 42 tests, no network; the Tokyo Station answer (test/fixtures) plus hand-written cases; the polygon rules negative-tested (5 tests red with them off) |
 | `Test-VLPatch`, `Test-VLPackage` | pass: 8 help patches (Explanation About OpenStreetMap and Overpass is notes and links only), Help.xml |
 | `Compile-HelpPatches` (`vvvvc`) | all 7 compile; every node of ours resolved and its renamed pins wired, read from the generated C# |
 | the vvvv GUI | 2026-11-15: Read an OSM file (783 features, 86 points / 651 lines / 46 polygons), Split by type, Height (50 m from `height=50`) seen working; Filter (Tag) the same evening (every amenity, then the 9 cafes), in vvvv 8.0 preview. Not yet: the two Overpass patches with Download pressed, ReadOSM on a .pbf |

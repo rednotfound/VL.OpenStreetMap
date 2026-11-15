@@ -40,7 +40,7 @@
             </p:TypeAnnotation>
           </Pad>
           <Node Bounds="60,210,110,19" Id="KX5O2gL8eCfVJdLf47KEmF">
-            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="ReadOSM" />
             </p:NodeReference>
@@ -50,11 +50,11 @@
             <Pin Id="BXFPOb25G9OrdQAtWQAzFa" Name="Read" Kind="InputPin" />
             <Pin Id="Qc37FUbdJVo4xtPB6e7iYW" Name="Features" Kind="OutputPin" />
             <Pin Id="VVuBNF4kJkOSqu8K03Vvog" Name="Status" Kind="OutputPin" />
-            <Pin Id="PpI6CRKIlHdrRbF9i7GsNi" Name="Busy" Kind="OutputPin" />
+            <Pin Id="PpI6CRKIlHdrRbF9i7GsNi" Name="In Progress" Kind="OutputPin" />
           </Node>
           <Pad Id="DhuGW3GMMK6cHEgTvy9VwR" Comment="Status" Bounds="200,250,420,15" ShowValueBox="true" isIOBox="true" />
           <Node Bounds="60,290,80,19" Id="EPAY1XToPuoh74UdVASdS5">
-            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="ToGeometry" />
             </p:NodeReference>
@@ -64,7 +64,7 @@
           </Node>
           <Pad Id="LzpjAYJWYIBinMnjBzf4N3" Comment="" Bounds="60,330,280,210" ShowValueBox="true" isIOBox="true" />
           <Node Bounds="360,330,80,19" Id="M8ojyWAyaIDIhei13PIDi5">
-            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="Attribution" />
             </p:NodeReference>

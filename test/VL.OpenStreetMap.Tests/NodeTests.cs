@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
 using Xunit;
@@ -191,17 +193,21 @@ public class NodeTests
             File.WriteAllText(OverpassClient.CacheFile(server, query), File.ReadAllText(Path.Combine("fixtures", "tokyo-station.osm")));
 
             using var node = new OverpassNode();
-            var first = node.Update(out var status, out var busy, query, false, server);
+            var first = node.Update(out var status, out var inProgress, out var completed, query, server: server);
+            var completedFrames = completed ? 1 : 0;
             var watch = Stopwatch.StartNew();
-            while (busy && watch.ElapsedMilliseconds < 10_000)
+            while (inProgress && watch.ElapsedMilliseconds < 10_000)
             {
                 Thread.Sleep(20);
-                first = node.Update(out status, out busy, query, false, server);
+                first = node.Update(out status, out inProgress, out completed, query, server: server);
+                if (completed) completedFrames++;
             }
-            Assert.False(busy);
+            Assert.False(inProgress);
             Assert.NotEmpty(first);
             Assert.Contains("saved", status);
-            Assert.Same(first, node.Update(out _, out _, query, false, server));   // one Spread per answer
+            Assert.Equal(1, completedFrames);                                                    // On Completed: one frame
+            Assert.Same(first, node.Update(out _, out _, out var again, query, server: server));  // one Spread per answer
+            Assert.False(again);
         }
         finally
         {
@@ -216,11 +222,103 @@ public class NodeTests
         OverpassClient.CacheDirectory = Path.Combine(Path.GetTempPath(), "vlosm-empty-" + Guid.NewGuid().ToString("N"));
         using var node = new OverpassNode();
         var watch = Stopwatch.StartNew();
-        string status; bool busy;
-        do { node.Update(out status, out busy, "[out:xml];node(1);out;", false, "https://example.invalid/"); Thread.Sleep(10); }
-        while (busy && watch.ElapsedMilliseconds < 5000);
+        string status; bool inProgress;
+        do { node.Update(out status, out inProgress, out _, "[out:xml];node(1);out;", server: "https://example.invalid/"); Thread.Sleep(10); }
+        while (inProgress && watch.ElapsedMilliseconds < 5000);
         Assert.Equal("not downloaded yet: press Download", status);
-        node.Update(out var none, out _, "", false, "https://example.invalid/");
+        node.Update(out var none, out _, out _, "", server: "https://example.invalid/");
         Assert.Equal("no query", none);
+    }
+
+    [Fact]
+    public void ReadOSM_reads_once_on_a_held_Read_and_says_On_Completed_once()
+    {
+        using var node = new ReadOsmNode();
+        var path = new VL.Lib.IO.Path(System.IO.Path.GetFullPath(System.IO.Path.Combine("fixtures", "tokyo-station.osm")));
+        var completions = 0;
+        var watch = Stopwatch.StartNew();
+        while (watch.ElapsedMilliseconds < 1500)
+        {
+            node.Update(out _, out _, out var done, path, read: true);    // a toggle held on
+            if (done) completions++;
+            Thread.Sleep(10);
+        }
+        var features = node.Update(out var status, out var inProgress, out _, path, read: true);
+        Assert.False(inProgress);
+        Assert.Equal(1, completions);
+        Assert.NotEmpty(features);
+        Assert.DoesNotContain("aborted", status);
+    }
+
+    // ── The worker: Abort, the snapshot, nothing after Dispose ────────────────
+
+    static Background.State WaitIdle(Background work)
+    {
+        var watch = Stopwatch.StartNew();
+        var s = work.Snapshot();
+        while (s.InProgress && watch.ElapsedMilliseconds < 5000) { Thread.Sleep(10); s = work.Snapshot(); }
+        return s;
+    }
+
+    [Fact]
+    public void Abort_stops_a_job_keeps_the_last_features_and_completes_nothing()
+    {
+        using var work = new Background();
+        var one = new[] { Building(("building", "yes")) };
+        work.Start("first", _ => Task.FromResult<(IReadOnlyList<NetTopologySuite.Features.Feature>?, string)>((one, "done")));
+        var done = WaitIdle(work);
+        Assert.Single(done.Features);
+        Assert.Equal(1, done.Completed);
+
+        var cancelled = false;
+        work.Start("slow", async token =>
+        {
+            try { await Task.Delay(Timeout.Infinite, token); }
+            catch (OperationCanceledException) { cancelled = true; throw; }
+            return (null, "never");
+        });
+        Assert.True(work.Snapshot().InProgress);
+        work.Abort();
+        var after = work.Snapshot();
+        Assert.False(after.InProgress);
+        Assert.Equal("aborted", after.Status);
+        Assert.Same(done.Features, after.Features);
+        Thread.Sleep(100);
+        Assert.True(cancelled);
+        Assert.Equal(1, work.Snapshot().Completed);
+    }
+
+    [Fact]
+    public void A_newer_job_wins_and_a_failure_is_a_status_that_keeps_the_features()
+    {
+        using var work = new Background();
+        var one = new[] { Building(("building", "yes")) };
+        work.Start("a", _ => Task.FromResult<(IReadOnlyList<NetTopologySuite.Features.Feature>?, string)>((one, "a done")));
+        var first = WaitIdle(work);
+
+        var release = new TaskCompletionSource();
+        work.Start("old", async _ => { await release.Task; return (Array.Empty<NetTopologySuite.Features.Feature>(), "old done"); });
+        work.Start("new", _ => throw new InvalidOperationException("boom"));
+        release.SetResult();
+        var s = WaitIdle(work);
+        Thread.Sleep(100);
+        s = work.Snapshot();
+        Assert.Equal("InvalidOperationException: boom", s.Status);
+        Assert.Same(first.Features, s.Features);
+        Assert.Equal(2, s.Completed);
+    }
+
+    [Fact]
+    public void Nothing_lands_after_Dispose()
+    {
+        var work = new Background();
+        var release = new TaskCompletionSource();
+        work.Start("x", async _ => { await release.Task; return (new[] { Building(("a", "b")) }, "landed"); });
+        work.Dispose();
+        release.SetResult();
+        Thread.Sleep(100);
+        var s = work.Snapshot();
+        Assert.Empty(s.Features);
+        Assert.Equal(0, s.Completed);
     }
 }

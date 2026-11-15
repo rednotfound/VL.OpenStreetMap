@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using NetTopologySuite.Geometries;
 using VL.Core.Import;
 using VL.Lib.Collections;
@@ -28,25 +30,36 @@ public sealed class ReadOsmNode : IDisposable
     readonly Background _work = new();
     string? _path;
     Envelope? _area;
+    int _seenCompleted;
+    bool _lastRead;
+
+    // Pins named as vvvv's FileReader names them: In Progress, On Completed, Abort (Busy until 2026-11-15).
+    // Read starts on its rising edge only, so a toggle held on does not restart the read every frame.
 
     /// <summary>Gives the features in the file.</summary>
     /// <param name="status">What happened, in words: how many features, or what went wrong.</param>
-    /// <param name="busy">True while the file is being read.</param>
+    /// <param name="inProgress">True while the file is being read.</param>
+    /// <param name="onCompleted">True for one frame when the file has been read, or reading failed.</param>
     /// <param name="path">A .osm or .osm.pbf file.</param>
     /// <param name="area">Optional: only what lies in this area, in longitude and latitude.</param>
     /// <param name="read">Reads the file again.</param>
+    /// <param name="abort">Stops reading. The last features stay.</param>
     [return: Pin(Name = "Features")]
     public Spread<NtsFeature> Update(
         out string status,
-        out bool busy,
+        out bool inProgress,
+        out bool onCompleted,
         VLPath? path = null,
         Geometry? area = null,
-        bool read = false)
+        bool read = false,
+        bool abort = false)
     {
         var p = path?.Value ?? "";
         var a = area is { IsEmpty: false } ? area.EnvelopeInternal : null;
 
-        if (read || p != _path || !Equals(a, _area))
+        var pressed = read && !_lastRead;
+        _lastRead = read;
+        if (pressed || p != _path || !Equals(a, _area))
         {
             _path = p;
             _area = a;
@@ -58,13 +71,18 @@ public sealed class ReadOsmNode : IDisposable
                 _work.Start("reading " + Path.GetFileName(p), token =>
                 {
                     var features = OsmSource.FromFile(p, a, out var report, token);
-                    return (features.Cast<NtsFeature>().ToList(), report.ToString());
+                    return Task.FromResult<(IReadOnlyList<NtsFeature>?, string)>((features.Cast<NtsFeature>().ToList(), report.ToString()));
                 });
         }
+        if (abort)
+            _work.Abort();
 
-        status = _work.Status;
-        busy = _work.Busy;
-        return _work.Features;
+        var now = _work.Snapshot();
+        status = now.Status;
+        inProgress = now.InProgress;
+        onCompleted = now.Completed != _seenCompleted;
+        _seenCompleted = now.Completed;
+        return now.Features;
     }
 
     /// <summary>Stops a read in flight.</summary>

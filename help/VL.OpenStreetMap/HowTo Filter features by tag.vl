@@ -50,7 +50,7 @@
             <Pin Id="U7LOTodDUhfyENzOFmdSA5" Name="Read" Kind="InputPin" />
             <Pin Id="OqKV39AdBp0TSmFZQhkuny" Name="Features" Kind="OutputPin" />
             <Pin Id="RKHuApd9jowPc9yQkYduPs" Name="Status" Kind="OutputPin" />
-            <Pin Id="Ll6LZVZxb5N2GQJbyZZlBz" Name="Busy" Kind="OutputPin" />
+            <Pin Id="Ll6LZVZxb5N2GQJbyZZlBz" Name="In Progress" Kind="OutputPin" />
           </Node>
           <Pad Id="FhIJ3QqlAsnKHrfzS8QpWi" Comment="Key" Bounds="120,260,80,15" ShowValueBox="true" isIOBox="true" Value="amenity">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">

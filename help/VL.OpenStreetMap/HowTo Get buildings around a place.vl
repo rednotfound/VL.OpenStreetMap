@@ -92,11 +92,11 @@
             <Pin Id="PgXzLhrur0kpU8q4ese4Dj" Name="Server" Kind="InputPin" />
             <Pin Id="AmUapviXyO6yGKAz5tBmq2" Name="Features" Kind="OutputPin" />
             <Pin Id="HS8yE03lO6PEutXnkb6c6N" Name="Status" Kind="OutputPin" />
-            <Pin Id="Qgz76GQjFPBWRfp61jVkQs" Name="Busy" Kind="OutputPin" />
+            <Pin Id="Qgz76GQjFPBWRfp61jVkQs" Name="In Progress" Kind="OutputPin" />
           </Node>
           <Pad Id="FzojCioHkdODVVoiANefUo" Comment="Status" Bounds="200,380,420,15" ShowValueBox="true" isIOBox="true" />
           <Node Bounds="60,420,80,19" Id="PfTzVIbzKCaiKzKOLB7iX6">
-            <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="ToGeometry" />
             </p:NodeReference>
@@ -106,7 +106,7 @@
           </Node>
           <Pad Id="RaeLrWhZ0dutqxOFR8CStN" Comment="" Bounds="60,460,280,210" ShowValueBox="true" isIOBox="true" />
           <Node Bounds="360,460,80,19" Id="IiE0MDoDsf255JTDKZWjXv">
-            <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="Attribution" />
             </p:NodeReference>

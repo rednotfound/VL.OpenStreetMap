@@ -13,62 +13,84 @@ namespace VL.OpenStreetMap;
 /// </summary>
 /// <remarks>
 /// <para>A node runs sixty times a second, so it may never wait for the network or a large file:
-/// <see cref="Start"/> runs the job on the thread pool and returns at once, and the node reads
-/// <see cref="Features"/>, <see cref="Status"/> and <see cref="Busy"/> every frame. A newer job
-/// cancels an older one, whose result is then thrown away (the generation check), as
-/// VL.NetTopologySuite.GeoJSON's reactive reader does.</para>
-/// <para>The features stay the same Spread until a job replaces them, so anything downstream that
-/// caches on identity (VL's change detection) sees one value per result, not one per frame.</para>
+/// <see cref="Start"/> runs the job on the thread pool and returns at once, and the node takes a
+/// <see cref="Snapshot"/> every frame. A newer job cancels an older one, whose result is then thrown
+/// away (the generation check), as VL.CoreLib's AsyncTask region does: the latest request wins.</para>
+/// <para>The shape is vvvv's own for loading (2026-11-15 survey: HTTPGet, FileReader, FileDownloader,
+/// TextureReader (Async)): a process node that polls, the last result held as the same instance
+/// (what HoldLatest does), In Progress, a one-frame On Completed, and an Abort. Observables are the
+/// secondary variant there and are not offered here.</para>
+/// <para>Everything the node shows is read in ONE snapshot under the lock, so a frame never shows a
+/// new status beside old features. The features are built completely on the worker and never
+/// changed after they are published.</para>
 /// </remarks>
 internal sealed class Background : IDisposable
 {
-    public delegate (IReadOnlyList<NtsFeature>? Features, string Status) Job(CancellationToken token);
+    public delegate Task<(IReadOnlyList<NtsFeature>? Features, string Status)> Job(CancellationToken token);
+
+    public readonly record struct State(Spread<NtsFeature> Features, string Status, bool InProgress, int Completed);
 
     readonly object _gate = new();
     CancellationTokenSource? _running;
     int _generation;
+    int _completed;
     bool _disposed;
+    Spread<NtsFeature> _features = Spread<NtsFeature>.Empty;
+    string _status = "";
+    bool _inProgress;
 
-    public Spread<NtsFeature> Features { get; private set; } = Spread<NtsFeature>.Empty;
-    public string Status { get; private set; } = "";
-    public bool Busy { get; private set; }
+    /// <summary>What the node shows this frame, read together.</summary>
+    public State Snapshot()
+    {
+        lock (_gate) return new State(_features, _status, _inProgress, _completed);
+    }
 
     /// <summary>Shows a status without running anything, and forgets any job in flight.</summary>
     public void Set(string status, bool clear)
     {
         lock (_gate)
         {
-            _generation++;
-            _running?.Cancel();
-            Busy = false;
-            Status = status;
-            if (clear) Features = Spread<NtsFeature>.Empty;
+            StopRunning();
+            _status = status;
+            if (clear) _features = Spread<NtsFeature>.Empty;
+        }
+    }
+
+    /// <summary>Stops a job in flight and keeps the last good features.</summary>
+    public void Abort()
+    {
+        lock (_gate)
+        {
+            if (!_inProgress) return;
+            StopRunning();
+            _status = "aborted";
         }
     }
 
     /// <summary>Runs a job on the thread pool. A null Features in its result keeps the last good ones.</summary>
-    public void Start(string busyStatus, Job job)
+    public void Start(string inProgressStatus, Job job)
     {
         CancellationToken token;
         int generation;
         lock (_gate)
         {
             if (_disposed) return;
-            _running?.Cancel();
-            _running?.Dispose();
+            StopRunning();
             _running = new CancellationTokenSource();
             token = _running.Token;
-            generation = ++_generation;
-            Busy = true;
-            Status = busyStatus;
+            generation = _generation;
+            _inProgress = true;
+            _status = inProgressStatus;
         }
 
-        Task.Run(() =>
+        // Task.Run so that a job's synchronous part (parsing a large file) is off the main thread too;
+        // the job itself awaits its I/O rather than blocking a pool thread on it.
+        _ = Task.Run(async () =>
         {
             (IReadOnlyList<NtsFeature>? features, string status) result;
             try
             {
-                result = job(token);
+                result = await job(token).ConfigureAwait(false);
             }
             catch (OperationCanceledException) when (token.IsCancellationRequested)
             {
@@ -78,15 +100,26 @@ internal sealed class Background : IDisposable
             {
                 result = (null, e.GetType().Name + ": " + e.Message);
             }
+            var published = result.features is null ? null : Spread.Create(result.features.ToArray());
             lock (_gate)
             {
                 if (generation != _generation || _disposed) return;
-                if (result.features is not null)
-                    Features = Spread.Create(result.features.ToArray());
-                Status = result.status;
-                Busy = false;
+                if (published is not null) _features = published;
+                _status = result.status;
+                _inProgress = false;
+                _completed++;
             }
-        }, token);
+        });
+    }
+
+    // Under the lock: a new generation, so a job still running finds its result unwanted.
+    void StopRunning()
+    {
+        _generation++;
+        _running?.Cancel();
+        _running?.Dispose();
+        _running = null;
+        _inProgress = false;
     }
 
     public void Dispose()
@@ -94,10 +127,7 @@ internal sealed class Background : IDisposable
         lock (_gate)
         {
             _disposed = true;
-            _generation++;
-            _running?.Cancel();
-            _running?.Dispose();
-            _running = null;
+            StopRunning();
         }
     }
 }
