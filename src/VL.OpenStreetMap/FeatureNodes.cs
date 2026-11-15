@@ -32,7 +32,7 @@ public static partial class FeatureNodes
     /// <param name="points">The features that are points.</param>
     /// <param name="lines">The features that are lines.</param>
     /// <param name="polygons">The features that are polygons.</param>
-    [Name("Split (By Type)")]
+    [Name("Split (ByType)")]
     public static void SplitByType(IEnumerable<NtsFeature>? features, out Spread<NtsFeature> points, out Spread<NtsFeature> lines, out Spread<NtsFeature> polygons)
     {
         var all = features?.Where(f => f?.Geometry is { IsEmpty: false }).ToArray() ?? Array.Empty<NtsFeature>();

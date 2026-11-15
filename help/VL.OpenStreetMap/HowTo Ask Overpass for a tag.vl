@@ -61,7 +61,7 @@
             </p:TypeAnnotation>
           </Pad>
           <Node Bounds="60,290,140,19" Id="VUoVVMV9WlmWWKcqesgNNJ">
-            <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="OverpassQuery (Tag)" />
             </p:NodeReference>
@@ -82,7 +82,7 @@
             </p:ValueBoxSettings>
           </Pad>
           <Node Bounds="100,400,110,19" Id="OyAuxmczHF1Go7Tr9AI9Lw">
-            <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="Overpass" />
             </p:NodeReference>
@@ -92,11 +92,11 @@
             <Pin Id="LMk8M3Ld7Dr0MNlsPh4V9K" Name="Server" Kind="InputPin" />
             <Pin Id="IxhgPVIaNxiWeHi5I6Rz0g" Name="Features" Kind="OutputPin" />
             <Pin Id="CZq14In1egs6TvDLScZmCj" Name="Status" Kind="OutputPin" />
-            <Pin Id="TPwL1QcYyCxoFlz1wzVigP" Name="Busy" Kind="OutputPin" />
+            <Pin Id="TPwL1QcYyCxoFlz1wzVigP" Name="In Progress" Kind="OutputPin" />
           </Node>
           <Pad Id="FjoVOkxVSU3JWcdlH6P4i4" Comment="Status" Bounds="200,440,420,15" ShowValueBox="true" isIOBox="true" />
           <Node Bounds="100,480,80,19" Id="AwbRUQZjVrLeEfJ2Z0ChIa">
-            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="ToGeometry" />
             </p:NodeReference>
@@ -143,7 +143,7 @@
             </p:ValueBoxSettings>
           </Pad>
           <Node Bounds="700,400,150,19" Id="BEsUoEuN92xdWqnpmIh05K">
-            <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="OverpassQuery (Preset)" />
             </p:NodeReference>

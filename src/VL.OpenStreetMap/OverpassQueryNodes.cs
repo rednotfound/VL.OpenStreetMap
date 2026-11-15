@@ -21,7 +21,7 @@ namespace VL.OpenStreetMap;
 /// <summary>
 /// The OSM features the Preset node can ask for.
 /// </summary>
-public enum OsmPreset
+public enum OSMPreset
 {
     /// <summary>Every building.</summary>
     Buildings,
@@ -57,11 +57,16 @@ public static class OverpassQueryNodes
     /// <param name="area">Where to look, in longitude and latitude.</param>
     /// <param name="key">The tag key, such as building or highway.</param>
     /// <param name="value">The tag value, such as residential. Empty means any.</param>
+    /// <param name="success">True when there is a query.</param>
     /// <param name="status">Why there is no query, when there is none.</param>
     [Name("OverpassQuery (Tag)")]
     [return: Pin(Name = "Query")]
-    public static string QueryTag(Geometry? area, [Pin(Name = "Status")] out string status, string key = "building", string? value = null)
-        => Box(area, out status) is { } box ? Wrap(Selector("nwr", key, value) + box) : "";
+    public static string QueryTag(Geometry? area, out bool success, [Pin(Name = "Status")] out string status, string key = "building", string? value = null)
+    {
+        var query = Box(area, out status) is { } box ? Wrap(Selector("nwr", key, value) + box) : "";
+        success = query.Length > 0;
+        return query;
+    }
 
     /// <summary>
     /// Writes an Overpass query for a kind of feature inside an area.
@@ -71,20 +76,23 @@ public static class OverpassQueryNodes
     /// </remarks>
     /// <param name="area">Where to look, in longitude and latitude.</param>
     /// <param name="preset">What to ask for.</param>
+    /// <param name="success">True when there is a query.</param>
     /// <param name="status">Why there is no query, when there is none.</param>
     [Name("OverpassQuery (Preset)")]
     [return: Pin(Name = "Query")]
-    public static string QueryPreset(Geometry? area, [Pin(Name = "Status")] out string status, OsmPreset preset = OsmPreset.Buildings)
+    public static string QueryPreset(Geometry? area, out bool success, [Pin(Name = "Status")] out string status, OSMPreset preset = OSMPreset.Buildings)
     {
+        success = false;
         if (Box(area, out status) is not { } box) return "";
+        success = true;
         var selectors = preset switch
         {
-            OsmPreset.Buildings => new[] { "nwr[\"building\"]" },
-            OsmPreset.Roads => new[] { "way[\"highway\"]" },
-            OsmPreset.Railways => new[] { "nwr[\"railway\"]" },
-            OsmPreset.Water => new[] { "nwr[\"natural\"=\"water\"]", "nwr[\"waterway\"]" },
-            OsmPreset.Green => new[] { "nwr[\"leisure\"~\"^(park|garden)$\"]", "nwr[\"landuse\"~\"^(grass|forest|meadow|recreation_ground)$\"]", "nwr[\"natural\"~\"^(wood|scrub|grassland)$\"]" },
-            OsmPreset.Amenities => new[] { "nwr[\"amenity\"]", "nwr[\"shop\"]" },
+            OSMPreset.Buildings => new[] { "nwr[\"building\"]" },
+            OSMPreset.Roads => new[] { "way[\"highway\"]" },
+            OSMPreset.Railways => new[] { "nwr[\"railway\"]" },
+            OSMPreset.Water => new[] { "nwr[\"natural\"=\"water\"]", "nwr[\"waterway\"]" },
+            OSMPreset.Green => new[] { "nwr[\"leisure\"~\"^(park|garden)$\"]", "nwr[\"landuse\"~\"^(grass|forest|meadow|recreation_ground)$\"]", "nwr[\"natural\"~\"^(wood|scrub|grassland)$\"]" },
+            OSMPreset.Amenities => new[] { "nwr[\"amenity\"]", "nwr[\"shop\"]" },
             _ => new[] { "nwr" },
         };
         return Wrap(string.Concat(selectors.Select(s => s + box)));
@@ -100,11 +108,13 @@ public static class OverpassQueryNodes
     /// <param name="radius">How far around it, in metres.</param>
     /// <param name="key">The tag key, such as building or highway.</param>
     /// <param name="value">The tag value. Empty means any.</param>
+    /// <param name="success">True when there is a query.</param>
     /// <param name="status">Why there is no query, when there is none.</param>
     [Name("OverpassQuery (Around)")]
     [return: Pin(Name = "Query")]
-    public static string QueryAround(Coordinate? position, [Pin(Name = "Status")] out string status, double radius = 300, string key = "building", string? value = null)
+    public static string QueryAround(Coordinate? position, out bool success, [Pin(Name = "Status")] out string status, double radius = 300, string key = "building", string? value = null)
     {
+        success = false;
         if (position is null || double.IsNaN(position.X) || double.IsNaN(position.Y))
         {
             status = "no position";
@@ -121,6 +131,7 @@ public static class OverpassQueryNodes
             return "";
         }
         status = "";
+        success = true;
         var around = string.Create(CultureInfo.InvariantCulture, $"(around:{radius:0.#},{position.Y:0.######},{position.X:0.######});");
         return Wrap(Selector("nwr", key, value) + around);
     }

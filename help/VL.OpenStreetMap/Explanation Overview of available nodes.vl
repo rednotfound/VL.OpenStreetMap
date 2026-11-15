@@ -117,7 +117,7 @@
             <Pin Id="Ay1mldhKGqbOmmw6Cd56bC" Name="Server" Kind="InputPin" />
             <Pin Id="NN0WhuuUdg1kZwPOSTHqX2" Name="Features" Kind="OutputPin" />
             <Pin Id="G8t4nbiIcb9rly9qGrTxmf" Name="Status" Kind="OutputPin" />
-            <Pin Id="MdvhWXzNNSRrHmqAanCpSj" Name="Busy" Kind="OutputPin" />
+            <Pin Id="MdvhWXzNNSRrHmqAanCpSj" Name="In Progress" Kind="OutputPin" />
           </Node>
           <Pad Id="RdM7YOph2boFVIPXamtbdU" Bounds="260,317,440,26" ShowValueBox="true" isIOBox="true" Value="&lt; Asks the server on Download; every answer saved and shown offline.">
             <p:TypeAnnotation>
@@ -139,7 +139,7 @@
             <Pin Id="VmfzTHGKCTcjRZereLx2K4" Name="Read" Kind="InputPin" />
             <Pin Id="K86TGkMPf9oph2wb1Wqfgr" Name="Features" Kind="OutputPin" />
             <Pin Id="TFvw1jXSTlQO0BYs1M9WMb" Name="Status" Kind="OutputPin" />
-            <Pin Id="SNboHUaP1mt68FyBEvVyAA" Name="Busy" Kind="OutputPin" />
+            <Pin Id="SNboHUaP1mt68FyBEvVyAA" Name="In Progress" Kind="OutputPin" />
           </Node>
           <Pad Id="HsXYmR4B57LBHyZVixbp4r" Bounds="260,352,440,26" ShowValueBox="true" isIOBox="true" Value="&lt; Features from a .osm or .osm.pbf file.">
             <p:TypeAnnotation>
@@ -162,7 +162,7 @@
           <Node Bounds="60,445,150,19" Id="NyQEE4pYgXRimOnBP1WVEv">
             <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="Split (By Type)" />
+              <Choice Kind="OperationCallFlag" Name="Split (ByType)" />
             </p:NodeReference>
             <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
             <Pin Id="GgLnmE1NElOfsLoUdeeCfM" Name="Features" Kind="InputPin" />
