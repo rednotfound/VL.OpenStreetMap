@@ -97,11 +97,26 @@ Names follow the family's rule: after what the user gets, VL's shape, three inpu
 | Node | Inputs | Outputs | Notes |
 |---|---|---|---|
 | **`Split (By Type)`** | **Features** | **Points**, **Lines**, **Polygons** | One list out of `Overpass` keeps the dataflow simple; this splits it when a layer wants one kind. QuickOSM's four outputs and Gismo's one-type-per-run both drew complaints. |
-| **`Height`** | **Feature**, **Level Height** (default 3 m) | **Height** (m), **Min Height** (m), **Estimated** | `height` parsed as metres (`12`, `12 m`, `12.5`; feet converted), else `building:levels` × Level Height (Estimated = true), else NaN. Never a random number. |
+| **`Filter (Tag)`** | **Features**, **Key**, **Value** (empty = any) | **Matching**, **Others** | Added 2026-11-15 after the survey below: every OSM tool selects by tag (Heron, Caribou, SideFX's OSM Filter, MapCSS `[k]` / `[k=v]`), and VL.Rhino.3dm keeps its free-form UserStrings generic the same way (`FilterKey`, `FilterKeyValue`). `@type` and `@id` are keys too. |
+| **`BuildingHeight`** | **Feature**, **Level Height** (default 3 m), **Default** (NaN) | **Height** (m), **Min Height** (m), **Estimated** | `height`, else `building:height` (m; feet converted), else `building:levels` × Level Height, else Default. Estimated is true unless a height was mapped. NaN unless the user gives a Default: the tools surveyed invent 0, 5, 6 or 20 m or a random number, and their users ask why every building is the same height. Called `Height` until 2026-11-15: a bare Height sits among every Skia and Stride Height in the NodeBrowser. |
 | **`ToGeometry`** | **Features** | **Geometry** | Every feature's geometry as one GeometryCollection, to draw in one IOBox or measure together. Added while writing the help: nothing in VL.NetTopologySuite turns a spread of features into one geometry. |
 | **`Attribution`** | | **Text** (`© OpenStreetMap contributors`), **Link** | The credit the ODbL requires wherever the data is shown; wire it to VL.Mapsui's `Attribution` or draw it. None of the tools surveyed surfaces it. |
 
 A single tag is read with VL.NetTopologySuite's existing **`GetAttribute`**: no new node.
+
+**Tags stay generic (2026-11-15, the maintainer asked whether a general library should not rather
+offer GetValue-style nodes).** Surveyed: 8 vvvv packs with schema-carrying containers and 17 OSM
+tools. In vvvv, 5 packs are generic only (OSC, CoreLib XML/JSON, ArtNet, Redis, NTS), 2 both (MIDI,
+VL.Rhino.3dm), 1 typed only (TUIO); every typed accessor reads a field the *format* defines (a MIDI
+CC, a TUIO profile, a Rhino built-in attribute), and none reads a conventional key out of a
+free-form dictionary - Rhino's UserStrings, the nearest thing to OSM tags, stay generic. A node
+that interprets is justified where reading is real work: MIDI's `GetPitchWheel` joins two bytes.
+Of the OSM tools, all give the raw tags; no data library (osmnx, pyrosm, OsmSharp, osmtogeojson,
+QuickOSM) derives a height; the 3D tools do (Heron, Caribou, Gismo, SideFX, BlenderGIS, Blosm), and
+Cesium / OpenMapTiles store theirs under its own name (`cesium#estimatedHeight`, `render_height`)
+beside the raw tag. So: `GetAttribute` and `Filter (Tag)` are the way in; `BuildingHeight` stays as
+the one interpreting node, because units and a fallback across keys are work; no `Name`,
+`Highway` or `Lanes` getters.
 
 ### Later, each when something needs it
 

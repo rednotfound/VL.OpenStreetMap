@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="GQktoPLxNtGPv67T51R9zD" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="Ua1vLUT9pQRUOpxXV9gjvS" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="K7jJS3czuE6czY3yBJj4wz" Location="VL.OpenStreetMap" Version="0.0.0" />
+  <Patch Id="TfOgC3BjNUFpBlyyQpt4G7">
+    <Canvas Id="Dmra6vgpR43wkl8B1WBS9X" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="Fn45A0Fvtrg58Ap9Ri12Di">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="Bpo3II8M1yXG4spAagEcfR">
+        <Canvas Id="M9n82LBrjTipgKNEflv3CM" CanvasType="Group">
+          <Pad Id="TdASwl2THVlBS6FtvctTox" Bounds="60,40,285,41" ShowValueBox="true" isIOBox="true" Value="Use Filter (Tag)!">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">20</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="Hp8tf0xP2h0kYdzKQ0jZvV" Bounds="60,90,600,28" ShowValueBox="true" isIOBox="true" Value="Keep the features that carry a tag: a key with any value, or a key with one value.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="FwCX5GMuJTaXyf7OINEUKg" Comment="Path" Bounds="60,170,300,15" ShowValueBox="true" isIOBox="true" Value="Assets\tokyo-station.osm">
+            <p:TypeAnnotation LastCategoryFullName="IO" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="Path" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="60,210,110,19" Id="Ra3sCyZepBd8XEaI2NnyDV">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="ReadOSM" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="QLADslmiXnRq8Qi4syg2Fs" Name="Path" Kind="InputPin" />
+            <Pin Id="GBzYulGoqUghOrqZsLKVEe" Name="Area" Kind="InputPin" />
+            <Pin Id="U7LOTodDUhfyENzOFmdSA5" Name="Read" Kind="InputPin" />
+            <Pin Id="OqKV39AdBp0TSmFZQhkuny" Name="Features" Kind="OutputPin" />
+            <Pin Id="RKHuApd9jowPc9yQkYduPs" Name="Status" Kind="OutputPin" />
+            <Pin Id="Ll6LZVZxb5N2GQJbyZZlBz" Name="Busy" Kind="OutputPin" />
+          </Node>
+          <Pad Id="FhIJ3QqlAsnKHrfzS8QpWi" Comment="Key" Bounds="120,260,80,15" ShowValueBox="true" isIOBox="true" Value="amenity">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Pad Id="GO3OMYSE8v47hcC6Ml4rWY" Comment="Value" Bounds="240,260,80,15" ShowValueBox="true" isIOBox="true" Value="">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="60,300,110,19" Id="T5JP2Qsh8bAYp9YXs7HUwP">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="Filter (Tag)" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="U8koqHsdEjHeJMuiMOpgf5" Name="Features" Kind="InputPin" />
+            <Pin Id="Jgj8tng9nhWlHJi3YPSK9h" Name="Key" Kind="InputPin" />
+            <Pin Id="G4qnHewDqF1gehW1olM0Ai" Name="Value" Kind="InputPin" />
+            <Pin Id="KvFEsE9zBgzat64xa33Mvs" Name="Matching" Kind="OutputPin" />
+            <Pin Id="U4ql9FprjwEdQ6CwucRrhl" Name="Others" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="60,340,80,19" Id="OQXKwcFpHIvHSOMRqcNGW1">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="HAPdqDW0YzvsdUFKMSEFBT" Name="Features" Kind="InputPin" />
+            <Pin Id="AamIJw7zg9bcoZlm0zVxN5" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="P04X0vGzT32B0RfsUCKkXf" Comment="Matching" Bounds="60,380,240,180" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="Ss5J9RVOV1SQE9EZeS5Vbf" Bounds="60,580,300,62" ShowValueBox="true" isIOBox="true" Value="&lt; A key alone keeps every feature that has it: restaurants, toilets, cafes, vending machines.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="SeUnq1buF2pXpSFj7OfWvD" Comment="Key" Bounds="460,260,80,15" ShowValueBox="true" isIOBox="true" Value="amenity">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Pad Id="GKqXwSpWxAWu9nlakV5tsS" Comment="Value" Bounds="580,260,80,15" ShowValueBox="true" isIOBox="true" Value="cafe">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="400,300,110,19" Id="KkopTXhLSFFXsY4zjvovae">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="Filter (Tag)" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="QIuwhrxhmFbzmXW0AhndxN" Name="Features" Kind="InputPin" />
+            <Pin Id="LUMY7v45Fd1LTENTgZ6BYl" Name="Key" Kind="InputPin" />
+            <Pin Id="Ey7NJAfQ5btWFntiGtGtYl" Name="Value" Kind="InputPin" />
+            <Pin Id="OQ44cYEM3paaWLYtBkHMMx" Name="Matching" Kind="OutputPin" />
+            <Pin Id="FLVDwDght4oJXM9CyYxmAa" Name="Others" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="400,340,80,19" Id="TRl55rqa46OHjDypvSGvf8">
+            <p:NodeReference LastCategoryFullName="OpenStreetMap" LastDependency="VL.OpenStreetMap.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToGeometry" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">Low</p:HelpFocus>
+            <Pin Id="KPjgQlCRaw2QrPpULKNkA9" Name="Features" Kind="InputPin" />
+            <Pin Id="DbGk044hPqZN6xALyPRZHd" Name="Geometry" Kind="OutputPin" />
+          </Node>
+          <Pad Id="NjEbfc3ORexPdtNj7qmI16" Comment="Matching" Bounds="400,380,240,180" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="JHxVwjb0i1aoG7Cda026Iz" Bounds="400,580,300,44" ShowValueBox="true" isIOBox="true" Value="&lt; A key and a value keep only those: the cafes. Others gives everything else.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="TkS6A7N0oqfpjz9bgXw4f8" Bounds="60,650,640,44" ShowValueBox="true" isIOBox="true" Value="&lt; Every OSM tag is a key: building, highway, shop, name. @type (node, way, relation) and @id are keys too.">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+        </Canvas>
+        <Patch Id="AL6LyKpdGAWtYXD92WNjDO" Name="Create" />
+        <Patch Id="PrmBcxQPmxgoIdCgtNiqng" Name="Update" />
+        <ProcessDefinition Id="JysGvgzyysPxYLVY3JM9Xy">
+          <Fragment Id="JS9LgR5yxgPTgZRelNPhsc" Patch="AL6LyKpdGAWtYXD92WNjDO" Enabled="true" />
+          <Fragment Id="BCHZDulIfpXN6jatvkR7Li" Patch="PrmBcxQPmxgoIdCgtNiqng" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="TF822AnSq8QaiVYIQm1Xvp" Ids="FwCX5GMuJTaXyf7OINEUKg,QLADslmiXnRq8Qi4syg2Fs" />
+        <Link Id="RNHgg64jb2P0FlIP9biBtX" Ids="OqKV39AdBp0TSmFZQhkuny,U8koqHsdEjHeJMuiMOpgf5" />
+        <Link Id="Ag1WJUJM1REFLmslDCAyhC" Ids="FhIJ3QqlAsnKHrfzS8QpWi,Jgj8tng9nhWlHJi3YPSK9h" />
+        <Link Id="FB2sRHEP6TdXNTuL9bpNkD" Ids="GO3OMYSE8v47hcC6Ml4rWY,G4qnHewDqF1gehW1olM0Ai" />
+        <Link Id="HGwhN8yh4GGHd6kxu8SfyY" Ids="KvFEsE9zBgzat64xa33Mvs,HAPdqDW0YzvsdUFKMSEFBT" />
+        <Link Id="O2EHbTyUPJYhQb5gGAJqAs" Ids="AamIJw7zg9bcoZlm0zVxN5,P04X0vGzT32B0RfsUCKkXf" />
+        <Link Id="GyRbcPLKwP94hRh4ilp0jI" Ids="OqKV39AdBp0TSmFZQhkuny,QIuwhrxhmFbzmXW0AhndxN" />
+        <Link Id="JpU2qEA6jVQYdNsd8ayo86" Ids="SeUnq1buF2pXpSFj7OfWvD,LUMY7v45Fd1LTENTgZ6BYl" />
+        <Link Id="OK2Yylsnjic67SnFZMNW7U" Ids="GKqXwSpWxAWu9nlakV5tsS,Ey7NJAfQ5btWFntiGtGtYl" />
+        <Link Id="IrJZke8oE24E4nGr6jB5Pa" Ids="OQ44cYEM3paaWLYtBkHMMx,KPjgQlCRaw2QrPpULKNkA9" />
+        <Link Id="KpBvKn2m1baWzi2gssaQ2U" Ids="DbGk044hPqZN6xALyPRZHd,NjEbfc3ORexPdtNj7qmI16" />
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="QQNu0TZk9z0Np1VzqfdAO9" Location="VL.NetTopologySuite" Version="0.0.0" />
+</Document>

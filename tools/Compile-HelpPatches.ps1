@@ -126,7 +126,8 @@ $OurNodes = @{
     'OverpassQuery (Preset)' = 'OverpassQueryNodes.QueryPreset('
     'OverpassQuery (Around)' = 'OverpassQueryNodes.QueryAround('
     'Split (By Type)'        = 'FeatureNodes.SplitByType('
-    'Height'                 = 'FeatureNodes.Height('
+    'BuildingHeight'         = 'FeatureNodes.BuildingHeight('
+    'Filter (Tag)'           = 'FeatureNodes.FilterTag('
     'Attribution'            = 'FeatureNodes.Attribution('
     'ToGeometry'             = 'FeatureNodes.ToGeometry('
 }
@@ -153,7 +154,8 @@ $OurPins = @{
     'OverpassQuery (Tag)'    = 'Query_'
     'OverpassQuery (Preset)' = 'Query_'
     'OverpassQuery (Around)' = 'Query_'
-    'Height'     = 'Height_'
+    'BuildingHeight' = 'Height_'
+    'Filter (Tag)'   = 'Matching_'
     'ToGeometry' = 'Geometry_'
 }
 

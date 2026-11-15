@@ -16,7 +16,7 @@
       </p:NodeReference>
       <Patch Id="KdAGzqoxRNcPqqLqALjaSc">
         <Canvas Id="SSlR9R4ubqPHjIZe1DUyNZ" CanvasType="Group">
-          <Pad Id="MVrlC90qxQjcv0qiiOZMpY" Bounds="60,40,195,41" ShowValueBox="true" isIOBox="true" Value="Use Height!">
+          <Pad Id="MVrlC90qxQjcv0qiiOZMpY" Bounds="60,40,330,41" ShowValueBox="true" isIOBox="true" Value="Use BuildingHeight!">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
@@ -83,7 +83,7 @@
           <Node Bounds="96,400,110,19" Id="TGmc0Ctz0CQBDJxakAYWjq">
             <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="Height" />
+              <Choice Kind="OperationCallFlag" Name="BuildingHeight" />
             </p:NodeReference>
             <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
             <Pin Id="Dge3ZcSF1LePnqC2KIYD8i" Name="Feature" Kind="InputPin" />
@@ -120,7 +120,7 @@
               <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
             </p:ValueBoxSettings>
           </Pad>
-          <Pad Id="G9d5GrjkIJQkRHMBFLTIzo" Bounds="640,382,300,80" ShowValueBox="true" isIOBox="true" Value="&lt; Estimated is true when only building:levels was mapped (3 m a level, set by Level Height). No tag at all gives NaN, never a guess.">
+          <Pad Id="G9d5GrjkIJQkRHMBFLTIzo" Bounds="640,382,300,80" ShowValueBox="true" isIOBox="true" Value="&lt; Estimated is true when only building:levels was mapped (3 m a level, set by Level Height). No tag at all gives NaN, or Default if you give one.">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
