@@ -16,8 +16,8 @@
       </p:NodeReference>
       <Patch Id="KdAGzqoxRNcPqqLqALjaSc">
         <Canvas Id="SSlR9R4ubqPHjIZe1DUyNZ" CanvasType="Group">
-          <Pad Id="MVrlC90qxQjcv0qiiOZMpY" Bounds="60,40,195,41" ShowValueBox="true" isIOBox="true" Value="Use Height!">
-            <p:TypeAnnotation>
+          <Pad Id="MVrlC90qxQjcv0qiiOZMpY" Bounds="60,40,330,41" ShowValueBox="true" isIOBox="true" Value="Use BuildingHeight!">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -26,7 +26,7 @@
             </p:ValueBoxSettings>
           </Pad>
           <Pad Id="BCJDtezKL0JkVw9OOCzUQw" Bounds="60,90,600,46" ShowValueBox="true" isIOBox="true" Value="A building's height in metres, from its tags: height if mapped, else the number of levels.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -80,10 +80,10 @@
             <Pin Id="RXKTR5NClg9691TbBkB3tu" Name="Result" Kind="OutputPin" />
           </Node>
           <Pad Id="BNQmUk2X9JKeSMzRjJ04is" Comment="Building" Bounds="320,330,240,180" ShowValueBox="true" isIOBox="true" />
-          <Node Bounds="60,380,110,19" Id="TGmc0Ctz0CQBDJxakAYWjq">
+          <Node Bounds="96,400,110,19" Id="TGmc0Ctz0CQBDJxakAYWjq">
             <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="Height" />
+              <Choice Kind="OperationCallFlag" Name="BuildingHeight" />
             </p:NodeReference>
             <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
             <Pin Id="Dge3ZcSF1LePnqC2KIYD8i" Name="Feature" Kind="InputPin" />
@@ -92,8 +92,8 @@
             <Pin Id="Excsg1KB7CtHU0f7dRfYou" Name="Min Height" Kind="OutputPin" />
             <Pin Id="DA9dsF0HsIAdjzjFSgDWqc" Name="Estimated" Kind="OutputPin" />
           </Node>
-          <Pad Id="LBaOTZyvnVw92LQmMR41Wb" Comment="Height" Bounds="60,420,60,15" ShowValueBox="true" isIOBox="true" />
-          <Pad Id="AiIXFIdK94GZgvAhiAQROh" Comment="Estimated" Bounds="60,450,40,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="LBaOTZyvnVw92LQmMR41Wb" Comment="Height" Bounds="98,450,60,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="AiIXFIdK94GZgvAhiAQROh" Comment="Estimated" Bounds="203,480,40,15" ShowValueBox="true" isIOBox="true" />
           <Node Bounds="60,490,90,19" Id="RVDIOFmIUEQuVu65W162MD">
             <p:NodeReference LastCategoryFullName="NetTopologySuite.Feature" LastDependency="VL.NetTopologySuite.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
@@ -110,9 +110,9 @@
             <Pin Id="PwESXch9RQCWG78CZLtsrF" Name="Result" Kind="OutputPin" />
             <Pin Id="TX0xYiSn0Bjml2RkwQHFjU" Name="Success" Kind="OutputPin" />
           </Node>
-          <Pad Id="AIoVbXECS7TbNgBeUHN9um" Comment="Name" Bounds="60,530,200,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="AIoVbXECS7TbNgBeUHN9um" Comment="Name" Bounds="60,530,202,42" ShowValueBox="true" isIOBox="true" />
           <Pad Id="IO6JaBfhHaefGvfkUSPxKW" Bounds="640,330,300,44" ShowValueBox="true" isIOBox="true" Value="&lt; Change Index to walk through the buildings: the drawn one is the one measured.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -120,8 +120,8 @@
               <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
             </p:ValueBoxSettings>
           </Pad>
-          <Pad Id="G9d5GrjkIJQkRHMBFLTIzo" Bounds="640,382,300,80" ShowValueBox="true" isIOBox="true" Value="&lt; Estimated is true when only building:levels was mapped (3 m a level, set by Level Height). No tag at all gives NaN, never a guess.">
-            <p:TypeAnnotation>
+          <Pad Id="G9d5GrjkIJQkRHMBFLTIzo" Bounds="640,382,300,80" ShowValueBox="true" isIOBox="true" Value="&lt; Estimated is true when only building:levels was mapped (3 m a level, set by Level Height). No tag at all gives NaN, or Default if you give one.">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -130,7 +130,7 @@
             </p:ValueBoxSettings>
           </Pad>
           <Pad Id="UtmUnwcQz4yNI4lSj0MoeR" Bounds="640,490,300,62" ShowValueBox="true" isIOBox="true" Value="&lt; Every OSM tag is an attribute: GetAttribute reads any of them. name is the local name, name:en the English one.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>

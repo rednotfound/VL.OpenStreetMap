@@ -85,16 +85,64 @@ public class NodeTests
     }
 
     [Fact]
-    public void Height_comes_from_height_then_levels_then_nothing()
+    public void BuildingHeight_comes_from_height_then_building_height_then_levels_then_nothing()
     {
-        Assert.Equal(50, FeatureNodes.Height(Building(("height", "50")), out _, out var e1));
+        Assert.Equal(50, FeatureNodes.BuildingHeight(Building(("height", "50")), out _, out var e1));
         Assert.False(e1);
-        Assert.Equal(12, FeatureNodes.Height(Building(("building:levels", "4")), out _, out var e2));
+        Assert.Equal(20, FeatureNodes.BuildingHeight(Building(("building:height", "20"), ("building:levels", "4")), out _, out var eb));
+        Assert.False(eb);
+        Assert.Equal(50, FeatureNodes.BuildingHeight(Building(("height", "50"), ("building:height", "20")), out _, out _));
+        Assert.Equal(12, FeatureNodes.BuildingHeight(Building(("building:levels", "4")), out _, out var e2));
         Assert.True(e2);
-        Assert.True(double.IsNaN(FeatureNodes.Height(Building(("building", "yes")), out _, out _)));
-        Assert.True(double.IsNaN(FeatureNodes.Height(null, out _, out _)));
-        FeatureNodes.Height(Building(("height", "30"), ("min_height", "10")), out var min, out _);
+        Assert.True(double.IsNaN(FeatureNodes.BuildingHeight(Building(("building", "yes")), out _, out var e3)));
+        Assert.False(e3);
+        Assert.True(double.IsNaN(FeatureNodes.BuildingHeight(null, out _, out _)));
+        FeatureNodes.BuildingHeight(Building(("height", "30"), ("min_height", "10")), out var min, out _);
         Assert.Equal(10, min);
+        FeatureNodes.BuildingHeight(Building(("height", "30"), ("building:min_level", "2")), out var minLevel, out _);
+        Assert.Equal(6, minLevel);
+    }
+
+    [Fact]
+    public void A_Default_is_given_only_when_nothing_is_tagged_and_is_marked_estimated()
+    {
+        Assert.Equal(9, FeatureNodes.BuildingHeight(Building(("building", "yes")), out _, out var e, defaultHeight: 9));
+        Assert.True(e);
+        Assert.Equal(50, FeatureNodes.BuildingHeight(Building(("height", "50")), out _, out var e2, defaultHeight: 9));
+        Assert.False(e2);
+    }
+
+    [Fact]
+    public void Filter_by_tag_keeps_a_key_with_any_value_or_with_one_value()
+    {
+        var cafe = Building(("amenity", "cafe"));
+        var bank = Building(("amenity", "bank"));
+        var house = Building(("building", "house"));
+        var all = new[] { cafe, bank, house, null! };
+
+        var any = FeatureNodes.FilterTag(all, out var notAmenity, "amenity");
+        Assert.Equal(new[] { cafe, bank }, any);
+        Assert.Equal(new[] { house }, notAmenity);
+
+        var cafes = FeatureNodes.FilterTag(all, out var rest, "amenity", "cafe");
+        Assert.Equal(new[] { cafe }, cafes);
+        Assert.Equal(new[] { bank, house }, rest);
+
+        Assert.Empty(FeatureNodes.FilterTag(all, out var none, ""));
+        Assert.Equal(3, none.Count);
+        Assert.Empty(FeatureNodes.FilterTag(null, out var nothing));
+        Assert.Empty(nothing);
+    }
+
+    [Fact]
+    public void Filter_by_tag_reads_the_id_and_type_attributes_too()
+    {
+        var features = OsmSource.FromXml(File.ReadAllText(Path.Combine("fixtures", "tokyo-station.osm")), out _)
+            .Cast<NetTopologySuite.Features.Feature>().ToList();
+        var relations = FeatureNodes.FilterTag(features, out var rest, "@type", "relation");
+        Assert.NotEmpty(relations);
+        Assert.Equal(features.Count, relations.Count + rest.Count);
+        Assert.Contains(relations, f => (string)f.Attributes["@id"] == "relation/4856156");
     }
 
     [Fact]

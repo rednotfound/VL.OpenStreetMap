@@ -62,7 +62,7 @@ dotnet test test\VL.OpenStreetMap.Tests\VL.OpenStreetMap.Tests.csproj
 
 | | state |
 |---|---|
-| `dotnet test` | 35 tests, no network; the Tokyo Station answer (test/fixtures) plus hand-written cases; the polygon rules negative-tested (5 tests red with them off) |
-| `Test-VLPatch`, `Test-VLPackage` | pass: 6 help patches, Help.xml |
-| `Compile-HelpPatches` (`vvvvc`) | all 6 compile; every node of ours resolved and its renamed pins wired, read from the generated C# |
-| the vvvv GUI | 2026-11-15: Read an OSM file (783 features, 86 points / 651 lines / 46 polygons), Split by type, Height (50 m from `height=50`) seen working. Not yet: the two Overpass patches with Download pressed, ReadOSM on a .pbf |
+| `dotnet test` | 38 tests, no network; the Tokyo Station answer (test/fixtures) plus hand-written cases; the polygon rules negative-tested (5 tests red with them off) |
+| `Test-VLPatch`, `Test-VLPackage` | pass: 7 help patches, Help.xml |
+| `Compile-HelpPatches` (`vvvvc`) | all 7 compile; every node of ours resolved and its renamed pins wired, read from the generated C# |
+| the vvvv GUI | 2026-11-15: Read an OSM file (783 features, 86 points / 651 lines / 46 polygons), Split by type, Height (50 m from `height=50`) seen working; Filter (Tag) the same evening (every amenity, then the 9 cafes), in vvvv 8.0 preview. Not yet: the two Overpass patches with Download pressed, ReadOSM on a .pbf |

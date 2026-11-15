@@ -17,7 +17,7 @@
       <Patch Id="DDwlD22M2JS3flqfL5ZsEA">
         <Canvas Id="LQv7bT4G3ImCUoO7AlPbsr" CanvasType="Group">
           <Pad Id="GwUUKnwls8tIlTEdjTeEi3" Bounds="60,40,300,41" ShowValueBox="true" isIOBox="true" Value="Use OverpassQuery!">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -26,7 +26,7 @@
             </p:ValueBoxSettings>
           </Pad>
           <Pad Id="UycWTfTJ1fEejs7FzbvBJn" Bounds="60,90,600,46" ShowValueBox="true" isIOBox="true" Value="Any OpenStreetMap tag inside an area. Look up tags on wiki.openstreetmap.org: amenity=cafe, leisure=park, highway=bus_stop.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -81,7 +81,7 @@
               <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Bang</p:buttonmode>
             </p:ValueBoxSettings>
           </Pad>
-          <Node Bounds="60,400,110,19" Id="OyAuxmczHF1Go7Tr9AI9Lw">
+          <Node Bounds="100,400,110,19" Id="OyAuxmczHF1Go7Tr9AI9Lw">
             <p:NodeReference LastCategoryFullName="@{Query=UougJ816uHEeVbAYbCMHek; Download=H7gjuf45en7VIynJz3fpW5; Server=PgXzLhrur0kpU8q4ese4Dj; Features=AmUapviXyO6yGKAz5tBmq2; Status=HS8yE03lO6PEutXnkb6c6N; Busy=Qgz76GQjFPBWRfp61jVkQs}" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="Overpass" />
@@ -95,7 +95,7 @@
             <Pin Id="TPwL1QcYyCxoFlz1wzVigP" Name="Busy" Kind="OutputPin" />
           </Node>
           <Pad Id="FjoVOkxVSU3JWcdlH6P4i4" Comment="Status" Bounds="200,440,420,15" ShowValueBox="true" isIOBox="true" />
-          <Node Bounds="60,480,80,19" Id="AwbRUQZjVrLeEfJ2Z0ChIa">
+          <Node Bounds="100,480,80,19" Id="AwbRUQZjVrLeEfJ2Z0ChIa">
             <p:NodeReference LastCategoryFullName="@{Query=NYvYQ05L8aCTm7AlTBdpNI; Download=D0Adq2iiyu7EyFeqaMuhqq; Server=LMk8M3Ld7Dr0MNlsPh4V9K; Features=IxhgPVIaNxiWeHi5I6Rz0g; Status=CZq14In1egs6TvDLScZmCj; Busy=TPwL1QcYyCxoFlz1wzVigP}" LastDependency="VL.OpenStreetMap.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="ToGeometry" />
@@ -125,7 +125,7 @@
           </Node>
           <Pad Id="D0ndPbmH8q9RILup5a0WRg" Comment="" Bounds="60,595,280,210" ShowValueBox="true" isIOBox="true" />
           <Pad Id="N3zKQ9bTAofl61hTCJEhQ3" Bounds="680,250,320,44" ShowValueBox="true" isIOBox="true" Value="&lt; Empty Value means any value: every amenity, cafes and banks and schools.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -134,7 +134,7 @@
             </p:ValueBoxSettings>
           </Pad>
           <Pad Id="VH622MhRipeYSC91uC52af" Bounds="680,302,320,62" ShowValueBox="true" isIOBox="true" Value="&lt; Area is longitude and latitude, at most 0.25 degrees a side. Its box is what is asked for.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>
@@ -154,7 +154,7 @@
             <Pin Id="AZjHnvhmC0NaCdSgPMmS1x" Name="Status" Kind="OutputPin" />
           </Node>
           <Pad Id="CaYMqFuVMlQAcNkQ5KdrGS" Bounds="880,400,220,44" ShowValueBox="true" isIOBox="true" Value="&lt; Or a preset: buildings, roads, water, green, amenities.">
-            <p:TypeAnnotation>
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="TypeFlag" Name="String" />
             </p:TypeAnnotation>
             <p:ValueBoxSettings>

@@ -24,15 +24,15 @@
       nuspec makes them resolvable for a consumer. VL.Core and VL.CoreLib ship inside vvvv.
       OsmSharp is a prerelease (7.0.0-pre028), the current one, and brings protobuf-net.
       VL.NetTopologySuite is not needed by any node here, but by the help and by every user: the
-      features are drawn by its Geometry IOBox and opened with its GetAttribute. 0.0.8-alpha is
-      the first that gives an empty geometry rather than nothing for a missing input.
+      features are drawn by its Geometry IOBox and opened with its GetAttribute. 0.0.9-alpha is
+      the first whose Feature IOBox draws a Spread of features row by row.
     -->
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="NetTopologySuite" version="2.6.0" />
         <dependency id="NetTopologySuite.Features" version="2.1.0" />
         <dependency id="OsmSharp" version="7.0.0-pre028" />
-        <dependency id="VL.NetTopologySuite" version="0.0.8-alpha" />
+        <dependency id="VL.NetTopologySuite" version="0.0.9-alpha" />
       </group>
     </dependencies>
   </metadata>
