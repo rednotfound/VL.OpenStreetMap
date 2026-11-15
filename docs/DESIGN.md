@@ -148,7 +148,7 @@ for an application's users together) are far above a person pressing Download.
 - Copied from the siblings: `[assembly: ImportAsIs]`, the build / pack / Test-VLPackage /
   Test-VLPatch / Compile-HelpPatches / Test-Install tools, `NodeDocsTests`, the README template,
   `docs/GUIDE.md`, the launcher that closes only its own vvvv.
-- Dependencies: VL.NetTopologySuite (0.0.8-alpha: empty geometries rather than nulls),
+- Dependencies: VL.NetTopologySuite (0.0.9-alpha: its IOBox draws a Spread of features row by row),
   NetTopologySuite 2.6.0, NetTopologySuite.Features 2.1.0, OsmSharp 7.0.0-pre028. Every NuGet
   dependency also goes into `deps\`, the family's rule 2.
 
